@@ -43,7 +43,7 @@ const Allitems = () => {
         }
     ]
     return ( 
-        <section class="featured spad">
+        <section class="featured spad z-40">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">

@@ -50,7 +50,7 @@ const ShoppingCart = ({act,setAct}) => {
     //   console.log(formatter.format(+y))
     return (  
 
-<div className="z-50 absolute top-0 left-0 w-full h-screen fixed">
+<div className="z-50 absolute top-0 left-0 w-full h-screen sticky">
 		<div 
 			onClick={()=>{
 				handleSetAct()
