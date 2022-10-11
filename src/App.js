@@ -16,9 +16,16 @@ const App =()=> {
     const handleScroll = (e)=>{
         console.log(e.target)
     }
+
     const Navigate = useNavigate()
     const [navActive, setNavActive] = useState(0)
     const [cartActive, setCartActive] = useState(false)
+    const [curPath, setCurPath] = useState(localStorage.getItem("currentPath") || "/")
+
+    const handleSetPath =(data)=>{
+    setCurPath(localStorage.getItem("currentPath"))
+
+    }
     if(cartActive){
         document.body.style.overflow = "hidden";
     }else{
@@ -72,12 +79,10 @@ const App =()=> {
               </div>
               <div class="humberger__menu__widget">
                   <div class="header__top__right__language">
-                      <img src="assets/img/language.png" alt="" />
                       <div>Tiếng việt</div>
                       <span class="arrow_carrot-down"></span>
                       <ul>
-                          <li><a href="#">Tiếng Việt</a></li>
-                          <li><a href="#">English</a></li>
+                          <li><a>Tiếng Việt</a></li>
                       </ul>
                   </div>
                   <div class="header__top__right__auth">
@@ -92,12 +97,13 @@ const App =()=> {
                 <li
                 onClick={()=>{
                     console.log(data.path)
-                    setNavActive(index)
+                    setCurPath(data.path)
+                    handleSetPath(data)
                 }}
                  key={index}
                   >
                 <Link to={data.path}>
-                    <span className={`${navActive === index && "text-cyan-500"} flex flex-row items-center gap-[2px] hover:text-pink-300`}>
+                    <span className={`${ curPath === data.path && "text-pink-500"} flex flex-row items-center gap-[2px] hover:text-pink-300`}>
                          {data.name}
                     </span>
                 </Link>
@@ -111,7 +117,7 @@ const App =()=> {
               </nav>
               <div id="mobile-menu-wrap"></div>
               <div class="header__top__right__social">
-                  <a href="#"><i class="fa fa-facebook"></i></a>
+                  <a href="https://www.facebook.com/profile.php?id=100086444417322"><i class="fa fa-facebook"></i></a>
                   <a href="#"><i class="fa fa-twitter"></i></a>
                   <a href="#"><i class="fa fa-linkedin"></i></a>
                   <a href="#"><i class="fa fa-pinterest-p"></i></a>
@@ -124,7 +130,7 @@ const App =()=> {
               </div>
           </div>
          
-          <header class="header fixed bg-white z-40 w-full">
+          <header class="header sticky bg-white z-40 w-full">
               <div class="header__top">
                   <div class="container">
                       <div class="row">
@@ -139,18 +145,16 @@ const App =()=> {
                           <div class="col-lg-6 col-md-6">
                               <div class="header__top__right">
                                   <div class="header__top__right__social">
-                                      <a href="#"><i class="fa fa-facebook"></i></a>
+                                      <a href="https://www.facebook.com/profile.php?id=100086444417322"><i class="fa fa-facebook"></i></a>
                                       <a href="#"><i class="fa fa-twitter"></i></a>
-                                      <a href="#"><i class="fa fa-linkedin"></i></a>
+                                      <a href="https://www.instagram.com/commodite.gs/?fbclid=IwAR1oY7KQ8muwybtTeeHWCWPAid4WWE-mHOAW6PIsqmAFVpSBwLxDIhHNlkY"><i class="fa fa-instagram"></i></a>
                                       <a href="#"><i class="fa fa-pinterest-p"></i></a>
                                   </div>
                                   <div class="header__top__right__language">
-                                      <img src="assets/img/language.png" alt="" />
                                       <div>Tiếng việt</div>
                                       <span class="arrow_carrot-down"></span>
                                       <ul>
-                                          <li><a href="#">Tiếng việt</a></li>
-                                          <li><a href="#">English</a></li>
+                                          <li><a>Tiếng việt</a></li>
                                       </ul>
                                   </div>
                                   <div class="header__top__right__auth">
@@ -182,11 +186,14 @@ const App =()=> {
                               {
                                 navItems.map((data, index)=>(
                                     <li
-                                    onClick={()=>{setNavActive(index)}}
+                                    onClick={()=>{
+                                    localStorage.setItem("currentPath",data.path)
+                                    handleSetPath(data)
+                                     }}
                                     key={index}
                                     >
                                         <Link to={data.path}>
-                                            <span className={`${navActive === index && "text-cyan-500"} flex flex-row items-center gap-[2px] hover:text-pink-300`}>
+                                            <span className={`${ curPath === data.path && "text-pink-500"} flex flex-row items-center gap-[2px] hover:text-pink-300`}>
                                             {data.name}
                                             </span>
                                         </Link></li>

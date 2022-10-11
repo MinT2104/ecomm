@@ -82,7 +82,7 @@ const Allitems = () => {
                               <ul class="featured__item__pic__hover">
                                   <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                   <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                  <li
+                                  <li className="cursor-pointer"
                                   onClick={()=>
                                     handleAddCartItems(dt)
                                 }
@@ -108,7 +108,7 @@ const Allitems = () => {
                               <ul class="featured__item__pic__hover">
                                   <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                   <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                  <li
+                                  <li className="cursor-pointer"
                                   onClick={()=>
                                     handleAddCartItems(dt)
                                 }
@@ -133,7 +133,7 @@ const Allitems = () => {
                               <ul class="featured__item__pic__hover">
                                   <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                   <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                  <li
+                                  <li className="cursor-pointer"
                                   onClick={()=>
                                     handleAddCartItems(dt)
                                 }
@@ -158,7 +158,7 @@ const Allitems = () => {
                               <ul class="featured__item__pic__hover">
                                   <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                   <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                  <li
+                                  <li className="cursor-pointer"
                                   onClick={()=>
                                     handleAddCartItems(dt)
                                 }
