@@ -1,0 +1,91 @@
+[
+    {
+        
+        "name": "Cơm cupbap bò phô mai",
+        "role": "thucan",
+        "price": "41,000",
+        "id": 0,
+        "links": "https://gs25.com.vn/media/4142/com-cupbap-bo-pho-mai.png"
+    },
+    {
+        
+        "name": "Mỳ ý thịt viên",
+        "role": "thucan",
+        "price": "39,000",
+        "id": 1,
+        "links": "https://gs25.com.vn/media/4140/mi-y-thit-vien-va-sot-rau-cu.png"
+    },
+    {
+        
+        "name": "Burger Gà phô mai Cheddar",
+        "role": "thucan",
+        "price": "47,000",
+        "id": 2,
+        "links": "https://gs25.com.vn/media/4124/burger-ga-phomai-cheddar.png"
+    },
+    {
+        
+        "name": "Topokki đường phố",
+        "role": "thucan",
+        "price": "25,000",
+        "id": 3,
+        "links": "https://gs25.com.vn/media/3552/street-tobbokki.png"
+    },
+    {
+        
+        "name": "Mì ý xúc xích",
+        "role": "thucan",
+        "price": "32,000",
+        "id": 4,
+        "links": "https://gs25.com.vn/media/3516/dscf3900.png"
+    },
+    {
+        
+        "name": "Topokki lắc phô mai",
+        "role": "thucan",
+        "price": "21,000",
+        "id": 5,
+        "links": "https://gs25.com.vn/media/2875/iconmonmoi600x600px-02.jpg"
+    },
+    {
+        
+        "name": "Sandwich trái cây nhiệt đới",
+        "role": "thucan",
+        "price": "43,000",
+        "id": 6,
+        "links": "https://gs25.com.vn/media/4132/sandwich-trai-cay-nhiet-doi.png"
+    },
+    {
+        
+        "name": "Cơm chiên hải sản",
+        "role": "thucan",
+        "price": "32,000",
+        "id": 7,
+        "links": "https://gs25.com.vn/media/4128/com-chien-hai-san1.png"
+    },
+    {
+        
+        "name": "sinh tố dưa lưới",
+        "role": "thucuong",
+        "price": "22,000",
+        "id": 8,
+        "links": "https://gs25.com.vn/media/2138/sinh-t%E1%BB%91-d%C6%B0a-l%C6%B0%E1%BB%9Bi.jpg"
+    },
+    {
+        
+        "name": "Slush dâu",
+        "role": "thucuong",
+        "price": "15,000",
+        "id": 9,
+        "links": "https://gs25.com.vn/media/2130/141slush-d%C3%A2u.jpg"
+    },
+    {
+        
+        "name": "Sinh tố mâm xôi đỏ",
+        "role": "thucuong",
+        "price": "39,000",
+        "id": 10,
+        "links": "https://gs25.com.vn/media/2140/147sinh-t%E1%BB%91-m%C3%A2m-xoi-%C4%91%E1%BB%8F.jpg"
+    }
+
+]
