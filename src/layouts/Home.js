@@ -3,6 +3,7 @@ import { Component, useState } from "react";
 import ShoppingCart from "./ShoppingCart";
 import { Routes, Route } from "react-router-dom";
 import Allitems from "../components/Allitems";
+import Categories from "../components/Categories";
 
 
 const Home = () => {
@@ -13,10 +14,11 @@ const Home = () => {
    
     return ( 
         <div >
-            <section className="hero">
+            
+            {/* <section className="hero">
               <div class="container">
                   <div class="row">
-                      {/* <div class="col-lg-3">
+                      <div class="col-lg-3">
                           <div class="hero__categories">
                               <div class="hero__categories__all bg-gradient-to-r from-cyan-500 to-blue-500">
                                   <i class="fa fa-bars"></i>
@@ -28,15 +30,12 @@ const Home = () => {
                                   <li><a href="#">vật dụng cá nhân</a></li>
                               </ul>
                           </div>
-                      </div> */}
+                      </div>
+
                       <div class="col-lg-12">
                           <div class="hero__search">
                               <div class="hero__search__form md:ml-[60px]">
                                   <form action="#">
-                                      {/* <div class="hero__search__categories">
-                                          All Categories
-                                          <span class="arrow_carrot-down"></span>
-                                      </div> */}
                                       <input type="text" placeholder="Bạn cần gì?" />
                                       <button type="submit" class="site-btn bg-gradient-to-r from-cyan-500 to-blue-500">TÌM KIẾM</button>
                                   </form>
@@ -54,7 +53,7 @@ const Home = () => {
                           <div class="hero__item set-bg">
                             
                               <div class="hero__text">
-                                {/* <img className="absolute z-0 top-0 left-0" src="https://images.pexels.com/photos/6947243/pexels-photo-6947243.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt=""/> */}
+                                
                                   <span>TIỆN ÍCH</span>
                                   <h2>Commodité <br />Grocery Store</h2>
                                   <p>Nhanh chóng và dễ dàng</p>
@@ -64,45 +63,12 @@ const Home = () => {
                       </div>
                   </div>
               </div>
-          </section>
+          </section> */}
          
-          <section class="categories">
-              <div class="container">
-                  <div class="row">
-                      <div class="categories__slider owl-carousel">
-                          <div class="col-lg-3">
-                              <div class="categories__item set-bg" data-setbg="assets/img/categories/cat-1.jpg">
-                                  <h5><a href="#">Fresh Fruit</a></h5>
-                              </div>
-                          </div>
-                          <div class="col-lg-3">
-                              <div class="categories__item set-bg" data-setbg="assets/img/categories/cat-2.jpg">
-                                  <h5><a href="#">Dried Fruit</a></h5>
-                              </div>
-                          </div>
-                          <div class="col-lg-3">
-                              <div class="categories__item set-bg" data-setbg="assets/img/categories/cat-3.jpg">
-                                  <h5><a href="#">Vegetables</a></h5>
-                              </div>
-                          </div>
-                          <div class="col-lg-3">
-                              <div class="categories__item set-bg" data-setbg="assets/img/categories/cat-4.jpg">
-                                  <h5><a href="#">drink fruits</a></h5>
-                              </div>
-                          </div>
-                          <div class="col-lg-3">
-                              <div class="categories__item set-bg" data-setbg="assets/img/categories/cat-5.jpg">
-                                  <h5><a href="#">drink fruits</a></h5>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </section>
         
-        <Allitems/>
-        
-          <div class="banner">
+       
+       
+          {/* <div class="banner">
               <div class="container">
                   <div class="row">
                       <div class="col-lg-6 col-md-6 col-sm-6">
@@ -117,9 +83,10 @@ const Home = () => {
                       </div>
                   </div>
               </div>
-          </div>
+          </div> */}
+          <Allitems/>
        
-          <section class="latest-product spad">
+          {/* <section class="latest-product spad">
               <div class="container">
                   <div class="row">
                       <div class="col-lg-4 col-md-6">
@@ -321,7 +288,7 @@ const Home = () => {
               </div>
           </section>
       
-          {/* <section class="from-blog spad">
+          <section class="from-blog spad">
               <div class="container">
                   <div class="row">
                       <div class="col-lg-12">
