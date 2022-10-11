@@ -124,7 +124,7 @@ const App =()=> {
               </div>
           </div>
          
-          <header class="header fixed bg-white z-50 w-full">
+          <header class="header fixed bg-white z-40 w-full">
               <div class="header__top">
                   <div class="container">
                       <div class="row">
