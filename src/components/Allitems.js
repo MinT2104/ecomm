@@ -43,7 +43,7 @@ const Allitems = () => {
         }
     ]
     return ( 
-        <section class="featured spad z-40">
+        <section class="featured spad z-40 pt-40">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -72,13 +72,13 @@ const Allitems = () => {
                     </div>
                 </div>
             </div>
-            <div class="row featured__filter">
+            <div class="row featured__filter drop-shadow-sm">
               { filterName === "Tất cả" &&
                   data.map((dt, index)=>(
-                      <div key={index} class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
+                    <div key={index} class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat  bg-white">
                       <div class="featured__item">
                           <div class="featured__item__pic set-bg" data-setbg={dt.links}>
-                              <img src={dt.links} alt=""/>
+                              <img className="hover:scale-110 duration-300" src={dt.links} alt=""/>
                               <ul class="featured__item__pic__hover">
                                   <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                   <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -101,10 +101,10 @@ const Allitems = () => {
                   data.map((dt, index)=>(
                       dt.role === "thucan" &&
                           
-                           <div key={index} class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
+                           <div key={index} class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat bg-white">
                       <div class="featured__item">
                           <div class="featured__item__pic set-bg" data-setbg={dt.links}>
-                              <img src={dt.links} alt=""/>
+                              <img className="hover:scale-110 duration-300" src={dt.links} alt=""/>
                               <ul class="featured__item__pic__hover">
                                   <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                   <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -126,9 +126,9 @@ const Allitems = () => {
                   data.map((dt, index)=>(
                       dt.role === "thucuong" &&
                           
-                           <div key={index} class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
+                           <div key={index} class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat bg-white">
                       <div class="featured__item">
-                          <div class="featured__item__pic set-bg" data-setbg={dt.links}>
+                          <div className="hover:scale-110 duration-300" class="featured__item__pic set-bg" data-setbg={dt.links}>
                               <img src={dt.links} alt=""/>
                               <ul class="featured__item__pic__hover">
                                   <li><a href="#"><i class="fa fa-heart"></i></a></li>
@@ -151,10 +151,10 @@ const Allitems = () => {
                   data.map((dt, index)=>(
                       dt.role === "vatpham" &&
                           
-                           <div key={index} class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
+                           <div key={index} class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat bg-white">
                       <div class="featured__item">
                           <div class="featured__item__pic set-bg" data-setbg={dt.links}>
-                              <img src={dt.links} alt=""/>
+                              <img className="hover:scale-110 duration-300" src={dt.links} alt=""/>
                               <ul class="featured__item__pic__hover">
                                   <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                   <li><a href="#"><i class="fa fa-retweet"></i></a></li>

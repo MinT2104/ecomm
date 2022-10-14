@@ -9,6 +9,7 @@ const ShoppingCart = ({act,setAct}) => {
 	const [allItems, setAllItems] = useState(JSON.parse(localStorage.getItem("cart-items")))
 	const handleSetAct = ()=>{
 		setAct(!act)
+		// localStorage.setItem("cart-items", JSON.stringify(item))
 	}
 	const formatter = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
@@ -56,7 +57,7 @@ const ShoppingCart = ({act,setAct}) => {
 				handleSetAct()
 				
 			}}
-		className="h-screen w-full opacity-50 bg-black  ">
+		className="h-screen w-full opacity-80 bg-black  ">
 		</div>
 		<div className="w-2/5 h-screen bg-white absolute right-0 top-0">
 				<div className="p-2 flex flex-row items-center">
