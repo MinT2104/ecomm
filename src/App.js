@@ -11,6 +11,7 @@ import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router";
 import { Routes, Route } from "react-router-dom";
 import { AuthContextProvider } from './context/AuthContext';
+import Manager from './layouts/manager/Manager';
 
 
 
@@ -32,7 +33,7 @@ const [cartActive, setCartActive] = useState(false)
             />
             :null
         }         
-        <div class="humberger__menu__overlay"></div>
+        <div className="humberger__menu__overlay"></div>
         <Nav act={cartActive} setAct={setCartActive}/>
          
           <div>
@@ -46,6 +47,7 @@ const [cartActive, setCartActive] = useState(false)
             <Routes>
               <Route path="/login" element={<Login/>}/>
               {/* <Route path="/signup" element={<Signup/>}/> */}
+              <Route path="/manager" element={<Manager/>}/>
 
             </Routes>
         </div>
