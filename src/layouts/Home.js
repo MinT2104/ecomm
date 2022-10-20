@@ -6,6 +6,7 @@ import Allitems from "../components/Allitems";
 import Categories from "../components/Categories";
 
 
+
 const Home = () => {
     // const data = Object.values(db).map((data)=>data)
     // console.log(data)

@@ -1,11 +1,32 @@
-import db from "../db/productdb.json"
+// import db from "../db/productdb.json"
+import { collection, doc, getDocs, onSnapshot, query, deleteDoc } from "firebase/firestore"; 
+import {db} from "../firebase";
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 const Allitems = () => {
+    const [allPosts, setAllPosts] = useState([])
+
+    useEffect(()=>{
+        const q = query(collection(db,'posts'));
+        const unsubcrible = onSnapshot(q,(querySnapshot)=>{
+            let posts = [];
+            querySnapshot.forEach((doc) => {
+                posts.push({...doc.data(), id:doc.id})
+                });
+                setAllPosts(posts)
+
+        })
+        return ()=> unsubcrible()
+    },[])
+
+
+
+
+    // database-firebase------------------------------
     const Cart = []
 
-    const data = Object.values(db).map((data)=>data)
+    // const data = Object.values(db).map((data)=>data)
     // console.log(data)
     const [filterName, setFilterName] = useState("Tất cả")
     const [saveCartItems, setSaveCartItems]= useState(JSON.parse(localStorage.getItem("cart-items")) || [])
@@ -74,7 +95,7 @@ const Allitems = () => {
             </div>
             <div className="row featured__filter drop-shadow-sm">
               { filterName === "Tất cả" &&
-                  data.map((dt, index)=>(
+                  allPosts.map((dt, index)=>(
                     <div key={index} className="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat  bg-white">
                       <div className="featured__item">
                           <div className="featured__item__pic set-bg" data-setbg={dt.links}>
@@ -98,7 +119,7 @@ const Allitems = () => {
                   ))
               }
               { filterName === "Thức ăn" &&
-                  data.map((dt, index)=>(
+                  allPosts.map((dt, index)=>(
                       dt.role === "thucan" &&
                           
                            <div key={index} className="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat bg-white">
@@ -123,7 +144,7 @@ const Allitems = () => {
                   </div>   
                   ))}
                   { filterName === "Thức uống" &&
-                  data.map((dt, index)=>(
+                  allPosts.map((dt, index)=>(
                       dt.role === "thucuong" &&
                           
                            <div key={index} className="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat bg-white">
@@ -148,7 +169,7 @@ const Allitems = () => {
                   </div>   
                   ))}
                   { filterName === "Vật phẩm" &&
-                  data.map((dt, index)=>(
+                  allPosts.map((dt, index)=>(
                       dt.role === "vatpham" &&
                           
                            <div key={index} className="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat bg-white">
