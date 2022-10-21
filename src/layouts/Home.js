@@ -1,74 +1,92 @@
-// import { Link } from "react-router-dom";
-// import { Component, useState } from "react";
-// import ShoppingCart from "./ShoppingCart";
+
 import { Routes, Route } from "react-router-dom";
 import Allitems from "../components/Allitems";
 import Categories from "../components/Categories";
 
+import { collection, doc, addDoc, onSnapshot, query, deleteDoc, updateDoc } from "firebase/firestore"; 
+import {db} from "../firebase"
+import { useEffect, useState } from "react";
+import { UserAuth } from "../context/AuthContext";
+
 
 
 const Home = () => {
+    const [tests, setTests] = useState([])
+    const {user, logOut} = UserAuth()
+    const [cart, setCart] = useState(false)
+    const [dataCart, setDataCart] = useState("")
+
     // const data = Object.values(db).map((data)=>data)
     // console.log(data)
-    // const [filterName, setFilterName] = useState("Tất cả")
+    const [filterName, setFilterName] = useState("Tất cả")
+    useEffect(()=>{
+        const z = query(collection(db,'shoppingcart'));
+        const unsubcrible = onSnapshot(z,(querySnapshot)=>{
+            let test = [];
+            querySnapshot.forEach((doc) => {
+                test.push({...doc.data(), id:doc.id})
+                });
+            setTests(test)
+
+            const data = test.filter((data)=>{
+                return data.userId == user.uid
+                 })
+                setDataCart(data)
+                console.log(data)
+            
+        })
+        // console.log("tests:" ,tests)
+  
+            
+ 
+        return ()=> unsubcrible()
+
+    },[])
+    useEffect(()=>{
+        
+
+        if(dataCart.userId == undefined){setCart(true)}
+        else{setCart(false)}
+        console.log(dataCart)
+  
+       // console.log("data :",data)
+       console.log(cart)
+       console.log("data test :", tests)
+
+            if( dataCart.length < 1){
+                if( dataCart[0] == undefined  && user.uid){
+                 console.log("vaoduocroi")
+                
+                 addDoc(collection(db,"shoppingcart"),{
+                 userId: user.uid,
+                 carts:[
+                     {
+                         id:1,
+                         text:"alo",
+                         items:"aaaaaaaaaa"
+     
+                     }
+                 ]
+                  })
+                  setCart(false)
+               }  
+         }
+    
+    },[tests])
+
+    
+      
+         
+          
+
+    
     
    
     return ( 
-        <div >
+        <div className="bg-gray-100">
             
-            {/* <section className="hero">
-              <div className="container">
-                  <div className="row">
-                      <div className="col-lg-3">
-                          <div className="hero__categories">
-                              <div className="hero__categories__all bg-gradient-to-r from-cyan-500 to-blue-500">
-                                  <i className="fa fa-bars"></i>
-                                  <span>All departments</span>
-                              </div>
-                              <ul>
-                                  <li><a href="#">Thức ăn</a></li>
-                                  <li><a href="#">Nước uống</a></li>
-                                  <li><a href="#">vật dụng cá nhân</a></li>
-                              </ul>
-                          </div>
-                      </div>
-
-                      <div className="col-lg-12">
-                          <div className="hero__search">
-                              <div className="hero__search__form md:ml-[60px]">
-                                  <form action="#">
-                                      <input type="text" placeholder="Bạn cần gì?" />
-                                      <button type="submit" className="site-btn bg-gradient-to-r from-cyan-500 to-blue-500">TÌM KIẾM</button>
-                                  </form>
-                              </div>
-                              <div className="hero__search__phone">
-                                  <div className="hero__search__phone__icon text-cyan-500">
-                                      <i className="fa fa-phone"></i>
-                                  </div>
-                                  <div className="hero__search__phone__text ">
-                                      <h5>0359953717</h5>
-                                      <span>Hỗ trợ 24/7</span>
-                                  </div>
-                              </div>
-                          </div>
-                          <div className="hero__item set-bg">
-                            
-                              <div className="hero__text">
-                                
-                                  <span>TIỆN ÍCH</span>
-                                  <h2>Commodité <br />Grocery Store</h2>
-                                  <p>Nhanh chóng và dễ dàng</p>
-                                  <a href="#" className="primary-btn">MUA NGAY</a>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </section> */}
-          <Allitems/>
-       
-         
-          <footer className="footer spad">
+          <Allitems/>    
+         <footer className="footer spad">
               <div className="container">
                   <div className="row">
                       <div className="col-lg-3 col-md-6 col-sm-6">

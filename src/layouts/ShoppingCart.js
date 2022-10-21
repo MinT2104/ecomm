@@ -3,8 +3,16 @@ import { useNavigate } from "react-router";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useEffect, useState } from "react";
+import { UserAuth } from "../context/AuthContext";
+
 
 const ShoppingCart = ({act,setAct}) => {
+    const {user, logOut} = UserAuth()
+	if(localStorage.getItem("acesstoken")){
+		
+	}
+
+	// ........................................................
     const Navigate = useNavigate()
 	const [allItems, setAllItems] = useState(JSON.parse(localStorage.getItem("cart-items")))
 	const handleSetAct = ()=>{

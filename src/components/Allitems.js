@@ -1,11 +1,22 @@
 // import db from "../db/productdb.json"
 import { collection, doc, getDocs, onSnapshot, query, deleteDoc } from "firebase/firestore"; 
 import {db} from "../firebase";
+import SearchIcon from '@mui/icons-material/Search';
 
 import { useState, useEffect } from "react"
+import { Search } from "@mui/icons-material";
 
 const Allitems = () => {
     const [allPosts, setAllPosts] = useState([])
+    const [searchInput, setSearchIput] = useState("")  
+    const [filterName, setFilterName] = useState("Tất cả")
+    const [saveCartItems, setSaveCartItems]= useState(JSON.parse(localStorage.getItem("cart-items")) || [])
+    const [activeId, setActiveId] = useState(0)
+
+   const listFiltered = allPosts.filter((data)=>{
+        return data.name.toLowerCase().includes(searchInput)
+    })
+    // console.log(listFiltered)
 
     useEffect(()=>{
         const q = query(collection(db,'posts'));
@@ -20,17 +31,12 @@ const Allitems = () => {
         return ()=> unsubcrible()
     },[])
 
-
-
-
     // database-firebase------------------------------
     const Cart = []
 
     // const data = Object.values(db).map((data)=>data)
     // console.log(data)
-    const [filterName, setFilterName] = useState("Tất cả")
-    const [saveCartItems, setSaveCartItems]= useState(JSON.parse(localStorage.getItem("cart-items")) || [])
-    const [activeId, setActiveId] = useState(0)
+
 
     localStorage.setItem("cart-items", JSON.stringify(saveCartItems))
 
@@ -58,21 +64,18 @@ const Allitems = () => {
             name: "Thức uống",
             isActive: false
         },
-        {
-            name: "Vật phẩm",
-            isActive: false
-        }
+        // {
+        //     name: "Vật phẩm",
+        //     isActive: false
+        // }
     ]
     return ( 
         <section className="featured spad z-40 pt-40">
         <div className="container">
             <div className="row">
-                <div className="col-lg-12">
-                    <div className="section-title">
-                        <h2>Sản Phẩm chính</h2>
-                    </div>
-                    <div className="featured__controls">
-                        <ul>
+                <div className="mb-2 mt-5 flex flex-row items-center gap-8">
+                    <div className=" font-bold">
+                        <ul className="flex flex-row gap-2">
                             {/* <li className="active" >Tất cả</li>
                             <li>Thức ăn</li>
                             <li>Thức uống</li>
@@ -86,28 +89,78 @@ const Allitems = () => {
                             //   console.log(data.name)
                             }}
                             key={index}
-                             className={index === activeId ? "active":""}>{data.name}</li>
+                             className={`font-bold p-2 cursor-pointer ${index === activeId ? "active bg-blue-500 text-white":"bg-white"}`}>{data.name}</li>
                               ))
                             }
                         </ul>
                     </div>
+                    <div class="flex justify-center">
+                        <div class="xl:w-96">
+                            <div class="input-group relative flex flex-wrap gap-2 items-stretch w-full">
+                                <input
+                                value={searchInput}
+                                onChange={(e)=>setSearchIput(e.target.value)}
+                                 type="search" 
+                                 class="form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:outline-none" placeholder="Search" aria-label="Search" aria-describedby="button-addon2"/>
+                                <button class=" inline-block px-4 py-1.5 bg-blue-500 text-white font-medium hover:bg-pink-500 rounded-lg hover:shadow-lg focus:bg-blue-700  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out flex items-center" type="button" id="button-addon2">
+                                <SearchIcon/>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div className="row featured__filter drop-shadow-sm">
+            {
+                searchInput &&
+            <div className="row drop-shadow-sm">
+                {
+                    listFiltered.map((dt, index)=>(
+                  <div key={index} className=" hover:scale-95 duration-300 col-lg-3 col-md-4 col-sm-6 border-gray-100 bg-white border-[2px] pt-2">
+                    <div className="featured__item hover:text-pink-500">
+                        <div className="featured__item__pic set-bg" data-setbg={dt.links}>
+                            <img className="hover:scale-95 duration-300" src={dt.links} alt=""/>
+                            <ul className="featured__item__pic__hover">
+                                {/* <li><a href="#"><i className="fa fa-heart"></i></a></li>
+                                <li><a href="#"><i className="fa fa-retweet"></i></a></li> */}
+                                <li className="cursor-pointer"
+                                onClick={()=>
+                                  handleAddCartItems(dt)
+                              }
+                                >
+                                  <a><i className="fa fa-shopping-cart"></i></a></li>
+                            </ul>
+                        </div>
+                        <div className="featured__item__text">
+                            <h6><a href="#">{dt.name}</a></h6>
+                            <h5>{dt.price}đ</h5>
+                        </div>
+                    </div>
+                </div>
+                ))
+                }
+             
+            </div>
+                
+            
+            }
+            {
+                !searchInput &&
+                <div className="row drop-shadow-sm">
               { filterName === "Tất cả" &&
                   allPosts.map((dt, index)=>(
-                    <div key={index} className="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat  bg-white">
-                      <div className="featured__item">
+                    <div key={index} className=" hover:scale-95 duration-300 col-lg-3 col-md-4 col-sm-6 border-gray-100 bg-white border-[2px] pt-2">
+                      <div className="featured__item hover:text-pink-500">
                           <div className="featured__item__pic set-bg" data-setbg={dt.links}>
-                              <img className="hover:scale-110 duration-300" src={dt.links} alt=""/>
+                              <img className="hover:scale-95 duration-300" src={dt.links} alt=""/>
                               <ul className="featured__item__pic__hover">
-                                  <li><a href="#"><i className="fa fa-heart"></i></a></li>
-                                  <li><a href="#"><i className="fa fa-retweet"></i></a></li>
+                                  {/* <li><a href="#"><i className="fa fa-heart"></i></a></li>
+                                  <li><a href="#"><i className="fa fa-retweet"></i></a></li> */}
                                   <li className="cursor-pointer"
                                   onClick={()=>
                                     handleAddCartItems(dt)
                                 }
-                                  ><a><i className="fa fa-shopping-cart"></i></a></li>
+                                  >
+                                    <a><i className="fa fa-shopping-cart"></i></a></li>
                               </ul>
                           </div>
                           <div className="featured__item__text">
@@ -122,10 +175,10 @@ const Allitems = () => {
                   allPosts.map((dt, index)=>(
                       dt.role === "thucan" &&
                           
-                           <div key={index} className="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat bg-white">
+                           <div key={index} className=" hover:scale-95 duration-300 col-lg-3 col-md-4 col-sm-6 border-gray-100 bg-white border-[2px] pt-2">
                       <div className="featured__item">
                           <div className="featured__item__pic set-bg" data-setbg={dt.links}>
-                              <img className="hover:scale-110 duration-300" src={dt.links} alt=""/>
+                              <img className="hover:scale-95 duration-300" src={dt.links} alt=""/>
                               <ul className="featured__item__pic__hover">
                                   <li><a href="#"><i className="fa fa-heart"></i></a></li>
                                   <li><a href="#"><i className="fa fa-retweet"></i></a></li>
@@ -147,9 +200,9 @@ const Allitems = () => {
                   allPosts.map((dt, index)=>(
                       dt.role === "thucuong" &&
                           
-                           <div key={index} className="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat bg-white">
+                           <div key={index} className=" hover:scale-95 duration-300 col-lg-3 col-md-4 col-sm-6 border-gray-100 bg-white border-[4px] pt-2">
                       <div className="featured__item">
-                          <div className="hover:scale-110 duration-300 featured__item__pic set-bg" data-setbg={dt.links}>
+                          <div className="hover:scale-95 duration-300 featured__item__pic set-bg" data-setbg={dt.links}>
                               <img src={dt.links} alt=""/>
                               <ul className="featured__item__pic__hover">
                                   <li><a href="#"><i className="fa fa-heart"></i></a></li>
@@ -168,11 +221,11 @@ const Allitems = () => {
                       </div>
                   </div>   
                   ))}
-                  { filterName === "Vật phẩm" &&
+                  {/* { filterName === "Vật phẩm" &&
                   allPosts.map((dt, index)=>(
                       dt.role === "vatpham" &&
                           
-                           <div key={index} className="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat bg-white">
+                           <div key={index} className=" hover:scale-95 duration-300 col-lg-3 col-md-4 col-sm-6 border-gray-100 bg-white border-[4px] pt-2">
                       <div className="featured__item">
                           <div className="featured__item__pic set-bg" data-setbg={dt.links}>
                               <img className="hover:scale-110 duration-300" src={dt.links} alt=""/>
@@ -192,8 +245,10 @@ const Allitems = () => {
                           </div>
                       </div>
                   </div>   
-                  ))}
+                  ))} */}
             </div>
+            }
+            
         </div>
     </section>
      );

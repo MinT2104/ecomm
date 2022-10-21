@@ -857,7 +857,8 @@ ol {
 	height: 270px;
 	position: relative;
 	overflow: hidden;
-	background-position: center center;
+	background-position: center bottom;
+	background: cover;
 }
 
 .featured__item__pic__hover {

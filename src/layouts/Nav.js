@@ -124,7 +124,7 @@ const navItems = [
               </div>
           </div>
          
-          <header className="header fixed bg-white z-40 w-full">
+          <header className="header fixed bg-blue-500 z-40 w-full">
               <div className="header__top">
                   <div className="container">
                       <div className="row">
@@ -209,7 +209,7 @@ const navItems = [
                                     key={index}
                                     >
                                         <Link to={data.path}>
-                                            <span className={`${ curPath === data.path && "text-pink-500"} flex flex-row items-center gap-[2px] hover:text-pink-300`}>
+                                            <span className={`${ curPath === data.path ? "text-black":"text-white"} flex flex-row items-center gap-[2px] hover:scale-95 duration-300`}>
                                             {data.name}
                                             </span>
                                         </Link></li>
@@ -227,7 +227,7 @@ const navItems = [
                             >
                                 <a className='cursor-pointer'><ShoppingCartIcon/></a>
                             </span>
-                              <div className="header__cart__price">Vật phẩm: <span>0đ</span></div>
+                              <div className="header__cart__price text-white">Vật phẩm: <span>0đ</span></div>
                           </div>
                       </div>
                   </div>
