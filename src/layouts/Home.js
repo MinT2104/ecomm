@@ -53,24 +53,24 @@ const Home = () => {
        console.log(cart)
        console.log("data test :", tests)
 
-            if( dataCart.length < 1){
-                if( dataCart[0] == undefined  && user.uid){
-                 console.log("vaoduocroi")
+        //     if( dataCart.length < 1 ){
+        //         if( dataCart[0] == undefined  && user.uid){
+        //          console.log("vaoduocroi")
                 
-                 addDoc(collection(db,"shoppingcart"),{
-                 userId: user.uid,
-                 carts:[
-                     {
-                         id:1,
-                         text:"alo",
-                         items:"aaaaaaaaaa"
+        //          addDoc(collection(db,"shoppingcart"),{
+        //          userId: user.uid,
+        //          carts:[
+        //              {
+        //                  id:1,
+        //                  text:"alo",
+        //                  items:"aaaaaaaaaa"
      
-                     }
-                 ]
-                  })
-                  setCart(false)
-               }  
-         }
+        //              }
+        //          ]
+        //           })
+        //           setCart(false)
+        //        }  
+        //  }
     
     },[tests])
 
