@@ -48,7 +48,7 @@ const Allitems = () => {
     // console.log(data)
 
 
-    localStorage.setItem("cart-items", JSON.stringify(saveCartItems))
+    // localStorage.setItem("cart-items", JSON.stringify(saveCartItems))
 
     // const handleAddCartItems =(item)=>{
     //         setSaveCartItems(prev=>[...prev,  {
@@ -60,7 +60,15 @@ const Allitems = () => {
     //             }])
 
     // }
-    const handleAdd = async (dt)=>{
+    const update = async(newItem)=>{
+        // alert("ok")
+        const ownCart = JSON.parse(localStorage.getItem("myCart"))
+           await updateDoc(doc(db,"shoppingcart", ownCart.id),{
+                carts: newItem,
+                    })
+                    
+    }
+    const handleAdd = (dt)=>{
         if(user){
              const newItem = [...JSON.parse(localStorage.getItem("myCart")).carts, {
                 id:uuidv4(),
@@ -70,11 +78,9 @@ const Allitems = () => {
                 role:dt.role,
                 count:1
             }]   
-       if(myCart){
-            updateDoc(doc(db,"shoppingcart", myCart.id),{
-             carts: newItem
-                })
-                }
+            
+              
+            update(newItem)
         }
         else{
             toast("bạn cần đăng nhập để thêm sản phẩm")
@@ -84,7 +90,6 @@ const Allitems = () => {
     //    setTests(tests[0].carts.push({text:"ok"}))
     }
     
-    localStorage.setItem("cart-items", JSON.stringify(saveCartItems))
     const fil = [
         {
             name: "Tất cả",
