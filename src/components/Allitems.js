@@ -1,17 +1,27 @@
 // import db from "../db/productdb.json"
-import { collection, doc, getDocs, onSnapshot, query, deleteDoc } from "firebase/firestore"; 
+import { collection, doc, getDocs, onSnapshot, query, deleteDoc, updateDoc } from "firebase/firestore"; 
 import {db} from "../firebase";
 import SearchIcon from '@mui/icons-material/Search';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { UserAuth } from "../context/AuthContext";
+import { v4 as uuidv4 } from 'uuid';
 
 import { useState, useEffect } from "react"
 import { Search } from "@mui/icons-material";
 
 const Allitems = () => {
+    const {user, logOut} = UserAuth()
     const [allPosts, setAllPosts] = useState([])
     const [searchInput, setSearchIput] = useState("")  
     const [filterName, setFilterName] = useState("Tất cả")
     const [saveCartItems, setSaveCartItems]= useState(JSON.parse(localStorage.getItem("cart-items")) || [])
     const [activeId, setActiveId] = useState(0)
+    const [myCart, setMyCart]=useState(JSON.parse(localStorage.getItem("myCart")) || [])
+    // const [cartItem, setCartItem] = useState(JSON.parse(localStorage.getItem("myCart")).carts || [])
+
+    // const myCart = JSON.parse(localStorage.getItem("myCart"))
+    console.log(myCart)
 
    const listFiltered = allPosts.filter((data)=>{
         return data.name.toLowerCase().includes(searchInput)
@@ -40,16 +50,40 @@ const Allitems = () => {
 
     localStorage.setItem("cart-items", JSON.stringify(saveCartItems))
 
-    const handleAddCartItems =(item)=>{
-            setSaveCartItems(prev=>[...prev,  {
-                id: item.id,
-                name: item.name,
-                links: item.links,
-                price: item.price,
-                role: item.role
-                }])
+    // const handleAddCartItems =(item)=>{
+    //         setSaveCartItems(prev=>[...prev,  {
+    //             id: item.id,
+    //             name: item.name,
+    //             links: item.links,
+    //             price: item.price,
+    //             role: item.role
+    //             }])
 
+    // }
+    const handleAdd = async (dt)=>{
+        if(user){
+             const newItem = [...JSON.parse(localStorage.getItem("myCart")).carts, {
+                id:uuidv4(),
+                name: dt.name,
+                price: dt.price,
+                links:dt.links,
+                role:dt.role,
+                count:1
+            }]   
+       if(myCart){
+            updateDoc(doc(db,"shoppingcart", myCart.id),{
+             carts: newItem
+                })
+                }
+        }
+        else{
+            toast("bạn cần đăng nhập để thêm sản phẩm")
+        }
+       
+
+    //    setTests(tests[0].carts.push({text:"ok"}))
     }
+    
     localStorage.setItem("cart-items", JSON.stringify(saveCartItems))
     const fil = [
         {
@@ -70,10 +104,12 @@ const Allitems = () => {
         // }
     ]
     return ( 
-        <section className="featured spad z-40 pt-40">
+        <>
+        <ToastContainer/>
+           <section className="featured spad z-40 pt-40">
         <div className="container">
-            <div className="row">
-                <div className="mb-2 mt-5 flex flex-row items-center gap-8">
+            <div className="row px-4">
+                <div className="mb-2 mt-5 flex flex-row items-center justify-left gap-2 md:gap-8 flex-wrap-reverse">
                     <div className=" font-bold">
                         <ul className="flex flex-row gap-2">
                             {/* <li className="active" >Tất cả</li>
@@ -112,7 +148,7 @@ const Allitems = () => {
             </div>
             {
                 searchInput &&
-            <div className="row drop-shadow-sm">
+            <div className="row drop-shadow-sm ">
                 {
                     listFiltered.map((dt, index)=>(
                   <div key={index} className=" hover:scale-95 duration-300 col-lg-3 col-md-4 col-sm-6 border-gray-100 bg-white border-[2px] pt-2">
@@ -124,7 +160,8 @@ const Allitems = () => {
                                 <li><a href="#"><i className="fa fa-retweet"></i></a></li> */}
                                 <li className="cursor-pointer"
                                 onClick={()=>
-                                  handleAddCartItems(dt)
+                                  handleAdd(dt)
+                                  
                               }
                                 >
                                   <a><i className="fa fa-shopping-cart"></i></a></li>
@@ -157,7 +194,7 @@ const Allitems = () => {
                                   <li><a href="#"><i className="fa fa-retweet"></i></a></li> */}
                                   <li className="cursor-pointer"
                                   onClick={()=>
-                                    handleAddCartItems(dt)
+                                    handleAdd(dt)
                                 }
                                   >
                                     <a><i className="fa fa-shopping-cart"></i></a></li>
@@ -184,7 +221,7 @@ const Allitems = () => {
                                   <li><a href="#"><i className="fa fa-retweet"></i></a></li>
                                   <li className="cursor-pointer"
                                   onClick={()=>
-                                    handleAddCartItems(dt)
+                                    handleAdd(dt)
                                 }
                                   ><a><i className="fa fa-shopping-cart"></i></a></li>
                               </ul>
@@ -209,7 +246,7 @@ const Allitems = () => {
                                   <li><a href="#"><i className="fa fa-retweet"></i></a></li>
                                   <li className="cursor-pointer"
                                   onClick={()=>
-                                    handleAddCartItems(dt)
+                                    handleAdd(dt)
                                 }
                                   ><a><i className="fa fa-shopping-cart"></i></a></li>
                               </ul>
@@ -234,7 +271,7 @@ const Allitems = () => {
                                   <li><a href="#"><i className="fa fa-retweet"></i></a></li>
                                   <li className="cursor-pointer"
                                   onClick={()=>
-                                    handleAddCartItems(dt)
+                                    handleAdd(dt)
                                 }
                                   ><a><i className="fa fa-shopping-cart"></i></a></li>
                               </ul>
@@ -251,6 +288,8 @@ const Allitems = () => {
             
         </div>
     </section>
+        </>
+     
      );
 }
  

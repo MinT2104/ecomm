@@ -6,6 +6,10 @@ import { useEffect, useState } from "react";
 import { UserAuth } from "../context/AuthContext";
 
 
+import {  doc, updateDoc } from "firebase/firestore"; 
+import {db} from "../firebase"
+
+
 const ShoppingCart = ({act,setAct}) => {
     const {user, logOut} = UserAuth()
 	if(localStorage.getItem("acesstoken")){
@@ -14,18 +18,21 @@ const ShoppingCart = ({act,setAct}) => {
 
 	// ........................................................
     const Navigate = useNavigate()
-	const [allItems, setAllItems] = useState(JSON.parse(localStorage.getItem("cart-items")))
+const [myCart, setMyCart]=useState(JSON.parse(localStorage.getItem("myCart")) || [])
+const [allItems, setAllItems] = useState(JSON.parse(localStorage.getItem("myCart")).carts || [])
+// const [refresh, getRefresh] = useState(false)
 	const handleSetAct = ()=>{
 		setAct(!act)
 		// localStorage.setItem("cart-items", JSON.stringify(item))
 	}
+	console.log("allitems: ",allItems)
 	const formatter = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
         currency: 'VND',
         minimumFractionDigits: 0
       })
 
-	const cartItems = JSON.parse(localStorage.getItem("cart-items"))
+	const cartItems = JSON.parse(localStorage.getItem("myCart")).carts || []
 	 const x = cartItems.map((dt)=>{
 		return dt.price
 	})
@@ -34,25 +41,42 @@ const ShoppingCart = ({act,setAct}) => {
 	S += +x[i-1].replace(/,/g, '')
 	}
 	console.log(formatter.format(S))
+	const handleDelete = async (data)=>{
+		if(user){
+			const newItem = [...JSON.parse(localStorage.getItem("myCart")).carts].filter(item=>{
+				return data.id !== item.id
+			})
+	  if(myCart){
+		   updateDoc(doc(db,"shoppingcart", myCart.id),{
+			carts: newItem
+			   })
+			   }
+			   setTimeout(()=>{
+				setAllItems(JSON.parse(localStorage.getItem("myCart")).carts)
+			   },[200])
 
-	const handleDeleteItem = (data)=>{
-		const item = cartItems.filter((item)=>{
-			if(data.id !== item.id) return true
-		})
-		setAllItems(item)
-		localStorage.setItem("cart-items", JSON.stringify(item))
-		console.log(cartItems)
-	}
-	const handleChangeQuantity = (e, data)=>{
-		const valueInput = +e.target.value
-		// const newPrice = +price.replace(/,/g, '')
-		// console.log(price)
+	   }
+    }
+	useEffect(()=>{},[allItems])
 
-		// console.log(data.price*valueInput)
-		 console.log(data.price = String(+data.price.replace(/,/g, '')*valueInput))
+	// const handleDeleteItem = (data)=>{
+	// 	const item = cartItems.filter((item)=>{
+	// 		if(data.id !== item.id) return true
+	// 	})
+	// 	setAllItems(item)
+	// 	localStorage.setItem("cart-items", JSON.stringify(item))
+	// 	console.log(cartItems)
+	// }
+	// const handleChangeQuantity = (e, data)=>{
+	// 	const valueInput = +e.target.value
+	// 	// const newPrice = +price.replace(/,/g, '')
+	// 	// console.log(price)
 
-		// console.log(price*valueInput)
-	}
+	// 	// console.log(data.price*valueInput)
+	// 	 console.log(data.price = String(+data.price.replace(/,/g, '')*valueInput))
+
+	// 	// console.log(price*valueInput)
+	// }
 
 
       
@@ -61,13 +85,10 @@ const ShoppingCart = ({act,setAct}) => {
 
 <div className="z-50 absolute top-0 left-0 w-full h-screen sticky">
 		<div 
-			onClick={()=>{
-				handleSetAct()
-				
-			}}
+		onClick={()=>{handleSetAct()}}
 		className="h-screen w-full opacity-80 bg-black  ">
 		</div>
-		<div className="w-2/5 h-screen bg-white absolute right-0 top-0">
+		<div className="w-full lg:w-2/5 h-screen bg-white absolute right-0 top-0">
 				<div className="p-2 flex flex-row items-center">
 				<span
 				onClick={()=>{
@@ -86,7 +107,7 @@ const ShoppingCart = ({act,setAct}) => {
 						<div className="p-2">
 						<input
 						onChange={(e)=>{
-						handleChangeQuantity(e, data)
+						// handleChangeQuantity(e, data)
 						}}
 						type="number" placeholder="1" className="w-10 border-[1px] border-black text-center rounded-xl" min="1"/>
 						</div>
@@ -99,7 +120,7 @@ const ShoppingCart = ({act,setAct}) => {
 							</h1>
 						</div>
 						<span 
-						onClick={()=>handleDeleteItem(data)}
+						onClick={()=>handleDelete(data)}
 						className="mr-2 cursor-pointer"><ClearIcon/></span>
 					</div>
 

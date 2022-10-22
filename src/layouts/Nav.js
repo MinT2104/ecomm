@@ -1,7 +1,7 @@
 
 import React, {useState, useEffect} from "react";
 import { Link } from 'react-router-dom';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import { UserAuth } from "../context/AuthContext";
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from "react-router-dom";
@@ -10,13 +10,20 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const Nav = ({act,setAct}) => {
-    
+  
     const Navigate = useNavigate()
     const {user, logOut} = UserAuth()
     const accessToken = localStorage.getItem("accessToken")
     const [cartActive, setCartActive] = useState(false)
     const [curPath, setCurPath] = useState(localStorage.getItem("currentPath") || "/")
+    const [state, setState] = useState(false)
 
+    
+    setTimeout(() => {
+        setState(!state)
+    }, [1500]);
+    
+        
 
     const handleSetPath =(data)=>{
     setCurPath(localStorage.getItem("currentPath"))
@@ -29,6 +36,14 @@ const Nav = ({act,setAct}) => {
         } catch(error) {
             console.log(error)
         }
+    }
+    const handleCartPopup =()=>{
+        if(user){
+            setAct(!act) 
+         }
+         else{
+             toast("Bạn cần phải đăng nhập để sử dụng")
+         }
     }
 if(cartActive){
     document.body.style.overflow = "hidden";
@@ -56,53 +71,54 @@ const navItems = [
 
     return ( 
         <>
-        <ToastContainer />
+        <ToastContainer/>
          <div className="humberger__menu__wrapper">
               <div className="humberger__menu__logo">
                   <a href="#" className=" h-auto logo w-60 h-60 rounded-full truncate">
-                    <img src='assets/img/logoweb2.png' alt=''/>
+                    <img src='assets/img/logoweb1.png' alt=''/>
                   </a>
               </div>
-              <div className="humberger__menu__cart flex flex-row">
+              {/* <div className="humberger__menu__cart flex flex-row">
                   <span
                   onClick={()=>setCartActive(!cartActive)}
                   >
                       <a><ShoppingCartIcon/></a>
                   </span>
                   <div className="header__cart__price">Vật phẩm <span>0đ</span></div>
-              </div>
+              </div> */}
               <div className="humberger__menu__widget">
-                  <div className="header__top__right__language">
+                  {/* <div className="header__top__right__language">
                       <div>Tiếng việt</div>
                       <span className="arrow_carrot-down"></span>
                       <ul>
                           <li><a>Tiếng Việt</a></li>
                       </ul>
-                  </div>
+                  </div> */}
                   <div className="header__top__right__auth">
                       <Link to="/login"><i className="fa fa-user"></i> Đăng nhập</Link>
                       {/* <a href="#"><i className="fa fa-user"></i> Đăng nhập</a> */}
                   </div>
               </div>
-              <nav className="humberger__menu__nav mobile-menu">
+              
+              <nav className="block w-full text-white z-50">
                   <ul>
-        {
-            navItems.map((data, index)=>(
-                <li
-                onClick={()=>{
-                    console.log(data.path)
-                    setCurPath(data.path)
-                    handleSetPath(data)
-                }}
-                 key={index}
-                  >
-                <Link to={data.path}>
-                    <span className={`${ curPath === data.path && "text-pink-500"} flex flex-row items-center gap-[2px] hover:text-pink-300`}>
-                         {data.name}
-                    </span>
-                </Link>
-                </li>
-            ))}
+                    {
+                        navItems.map((data, index)=>(
+                            <li
+                            onClick={()=>{
+                                console.log(data.path)
+                                setCurPath(data.path)
+                                handleSetPath(data)
+                            }}
+                            key={index}
+                            >
+                            <Link to={data.path}>
+                                <span className={`${ curPath === data.path && "text-pink-500"} text-black flex flex-row items-center gap-[2px] hover:scale-95 duration-300`}>
+                                    {data.name}
+                                </span>
+                            </Link>
+                            </li>
+                        ))}
 
                       {/* <li className="active"><Link to="/">Trang chủ</Link></li>
                       <li><Link to="/about">Giới thiệu</Link></li>
@@ -128,8 +144,8 @@ const navItems = [
               <div className="header__top">
                   <div className="container">
                       <div className="row">
-                          <div className="col-lg-6 col-md-6">
-                              <div className="header__top__left">
+                          <div className="col-lg-6 col-md-6 flex items-center">
+                              <div className="header__top__left ">
                                   <ul>
                                       <li><i className="fa fa-envelope"></i> commoditegrocerystore@gmail.com</li>
                                       <li>Free Ship cho đơn hàng lớn hơn 100k</li>
@@ -165,6 +181,7 @@ const navItems = [
                                         onClick={()=>{
                                             handleSignOut()
                                             toast("Bạn vừa đăng xuất tài khoản")
+                                            localStorage.removeItem("myCart")
                                         }
                                         } className="cursor-pointer text-pink-500">
                                             <LogoutIcon />
@@ -220,14 +237,29 @@ const navItems = [
                               </ul>
                           </nav>
                       </div>
-                      <div className="col-lg-3 flex flex-col justify-center">
-                          <div className="header__cart flex justify-end gap-4 items-center">
-                          <span
-                            onClick={()=>setAct(!act)}
-                            >
-                                <a className='cursor-pointer'><ShoppingCartIcon/></a>
+                      <div className="col-lg-3 flex flex-col justify-center ">
+                          <div className="header__cart flex justify-start md:justify-end ">
+                            <div 
+                            onClick={handleCartPopup}
+                            className="cursor-pointer border-white border-4 text-black p-2 rounded-xl px-3 flex gap-2 items-center">
+                                    {
+                                        user &&
+                                        <div 
+                                        className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center absolute right-2 top-4">
+                                        <span className="text-white font-bold">
+                                            {
+                                             JSON.parse(localStorage.getItem("myCart")) &&  JSON.parse(localStorage.getItem("myCart")).carts.length
+                                            }
+                                        </span>
+                                        </div>
+                                    }
+                                
+                            <span>
+                                <a className='cursor-pointer text-white'><ShoppingCartCheckoutIcon/></a>
                             </span>
-                              <div className="header__cart__price text-white">Vật phẩm: <span>0đ</span></div>
+                              <div className="header__cart__price text-white uppercase font-bold">Giỏ hàng</div>
+                            </div>
+                          
                           </div>
                       </div>
                   </div>

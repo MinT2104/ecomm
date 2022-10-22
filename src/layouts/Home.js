@@ -7,6 +7,7 @@ import { collection, doc, addDoc, onSnapshot, query, deleteDoc, updateDoc } from
 import {db} from "../firebase"
 import { useEffect, useState } from "react";
 import { UserAuth } from "../context/AuthContext";
+import { useRef } from "react";
 
 
 
@@ -15,10 +16,13 @@ const Home = () => {
     const {user, logOut} = UserAuth()
     const [cart, setCart] = useState(false)
     const [dataCart, setDataCart] = useState("")
+    const ref = useRef(false)
 
     // const data = Object.values(db).map((data)=>data)
     // console.log(data)
     const [filterName, setFilterName] = useState("Tất cả")
+
+    // -------------------query...........................
     useEffect(()=>{
         const z = query(collection(db,'shoppingcart'));
         const unsubcrible = onSnapshot(z,(querySnapshot)=>{
@@ -27,52 +31,57 @@ const Home = () => {
                 test.push({...doc.data(), id:doc.id})
                 });
             setTests(test)
-
-            const data = test.filter((data)=>{
-                return data.userId == user.uid
-                 })
-                setDataCart(data)
-                console.log(data)
-            
-        })
-        // console.log("tests:" ,tests)
+ })
+        console.log("tests0:" ,tests)
   
             
  
         return ()=> unsubcrible()
 
     },[])
+    console.log("data test1 :", tests)
+   
     useEffect(()=>{
-        
-
-        if(dataCart.userId == undefined){setCart(true)}
-        else{setCart(false)}
-        console.log(dataCart)
-  
-       // console.log("data :",data)
-       console.log(cart)
-       console.log("data test :", tests)
-
-        //     if( dataCart.length < 1 ){
-        //         if( dataCart[0] == undefined  && user.uid){
-        //          console.log("vaoduocroi")
+    if(ref.current){
+          if(tests){
+            if(user){
                 
-        //          addDoc(collection(db,"shoppingcart"),{
-        //          userId: user.uid,
-        //          carts:[
-        //              {
-        //                  id:1,
-        //                  text:"alo",
-        //                  items:"aaaaaaaaaa"
-     
-        //              }
-        //          ]
-        //           })
-        //           setCart(false)
-        //        }  
-        //  }
-    
+            // setTimeout(() => {
+                const data = tests.filter((data)=>{
+                return data.userId == user.uid
+                 })
+
+                console.log("data ne:", data)
+                   
+                         if(!data[0]){
+                            if( user.uid && data[0]== undefined){
+                            console.log("tạo nè")
+                        
+                                addDoc(collection(db,"shoppingcart"),{
+                                userId: user.uid,
+                                carts:[]
+                                    })
+                                    console.log("tạo xong r nè")
+                       }  
+                         }else{
+                            localStorage.setItem("myCart", JSON.stringify(data[0]))
+                    }
+                      
+                //  }, (1000));
+                      
+                         }
+            }
+    }
+    return()=>{
+        ref.current=true
+    }
+      
+            
+                
+      
     },[tests])
+    
+   
 
     
       

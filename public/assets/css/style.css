@@ -2997,7 +2997,7 @@ ol {
 		z-index: 99;
 		padding: 30px;
 		padding-top: 50px;
-		opacity: 0;
+		opacity: 100;
 		display: block;
 		-webkit-transition: all, 0.6s;
 		-moz-transition: all, 0.6s;
@@ -3082,7 +3082,7 @@ ol {
 		margin-right: 20px;
 	}
 	.humberger__menu__nav {
-		display: none;
+		display: block;
 	}
 	.humberger__menu__wrapper .header__top__right__social {
 		display: block;

@@ -6,6 +6,7 @@ import Login from './layouts/Login';
 import Home from './layouts/Home';
 import ShoppingCart from './layouts/ShoppingCart';
 import Nav from './layouts/Nav';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router";
@@ -27,6 +28,15 @@ const [cartActive, setCartActive] = useState(false)
     <AuthContextProvider>
         <div
      className="MainDiv">
+      
+        {/* <span
+      className=''
+       onClick={()=>setCartActive(!cartActive)}
+        >
+           <a className=' z-50 rounded-full cursor-pointer'><ShoppingCartIcon/></a>
+         </span> */}
+
+      
          {
             cartActive ? <ShoppingCart
              act={cartActive} setAct={setCartActive}
