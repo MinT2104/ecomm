@@ -1,5 +1,5 @@
 // import db from "../db/productdb.json"
-import { collection, doc, getDocs, onSnapshot, query, deleteDoc, updateDoc } from "firebase/firestore"; 
+import { collection, doc, getDocs, onSnapshot, query, addDoc, updateDoc } from "firebase/firestore"; 
 import {db} from "../firebase";
 import SearchIcon from '@mui/icons-material/Search';
 import { ToastContainer, toast } from 'react-toastify';
@@ -18,16 +18,14 @@ const Allitems = () => {
     const [saveCartItems, setSaveCartItems]= useState(JSON.parse(localStorage.getItem("cart-items")) || [])
     const [activeId, setActiveId] = useState(0)
     const [myCart, setMyCart]=useState(JSON.parse(localStorage.getItem("myCart")) || [])
-    // const [cartItem, setCartItem] = useState(JSON.parse(localStorage.getItem("myCart")).carts || [])
 
-    // const myCart = JSON.parse(localStorage.getItem("myCart"))
-    console.log(myCart)
+
+//-----------------------------filter----------------------------
 
    const listFiltered = allPosts.filter((data)=>{
         return data.name.toLowerCase().includes(searchInput)
     })
-    // console.log(listFiltered)
-
+  // database-firebase------------------------------
     useEffect(()=>{
         const q = query(collection(db,'posts'));
         const unsubcrible = onSnapshot(q,(querySnapshot)=>{
@@ -41,25 +39,8 @@ const Allitems = () => {
         return ()=> unsubcrible()
     },[])
 
-    // database-firebase------------------------------
-    const Cart = []
-
-    // const data = Object.values(db).map((data)=>data)
-    // console.log(data)
-
-
-    // localStorage.setItem("cart-items", JSON.stringify(saveCartItems))
-
-    // const handleAddCartItems =(item)=>{
-    //         setSaveCartItems(prev=>[...prev,  {
-    //             id: item.id,
-    //             name: item.name,
-    //             links: item.links,
-    //             price: item.price,
-    //             role: item.role
-    //             }])
-
-    // }
+  
+//---------------------------update-----------------------------------
     const update = async(newItem)=>{
         // alert("ok")
         const ownCart = JSON.parse(localStorage.getItem("myCart"))
@@ -68,19 +49,29 @@ const Allitems = () => {
                     })
                     
     }
-    const handleAdd = (dt)=>{
+    const handleAdd = async (dt)=>{
         if(user){
-             const newItem = [...JSON.parse(localStorage.getItem("myCart")).carts, {
-                id:uuidv4(),
+           await addDoc(collection(db,"UserCarts"),{
+                userId: user.uid,
+                // id:doc.id,   
                 name: dt.name,
                 price: dt.price,
                 links:dt.links,
                 role:dt.role,
                 count:1
-            }]   
+            
+            })
+            //  const newItem = [...JSON.parse(localStorage.getItem("myCart")).carts, {
+            //     id:uuidv4(),
+            //     name: dt.name,
+            //     price: dt.price,
+            //     links:dt.links,
+            //     role:dt.role,
+            //     count:1
+            // }]   
             
               
-            update(newItem)
+            // update(newItem)
         }
         else{
             toast("bạn cần đăng nhập để thêm sản phẩm")

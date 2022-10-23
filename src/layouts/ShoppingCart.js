@@ -1,115 +1,120 @@
-import { redirect } from "react-router";
+import {Link} from "react-router-dom"
 import { useNavigate } from "react-router";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ClearIcon from '@mui/icons-material/Clear';
 import { useEffect, useState } from "react";
 import { UserAuth } from "../context/AuthContext";
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 
-import {  doc, updateDoc } from "firebase/firestore"; 
+
+import {  doc, updateDoc, deleteDoc, onSnapshot, query, collection } from "firebase/firestore"; 
 import {db} from "../firebase"
 
 
-const ShoppingCart = ({act,setAct}) => {
+const ShoppingCart = () => {
     const {user, logOut} = UserAuth()
-	if(localStorage.getItem("acesstoken")){
-		
-	}
-
 	// ........................................................
     const Navigate = useNavigate()
-const [myCart, setMyCart]=useState(JSON.parse(localStorage.getItem("myCart")) || [])
-const [allItems, setAllItems] = useState(JSON.parse(localStorage.getItem("myCart")).carts || [])
-// const [refresh, getRefresh] = useState(false)
-	const handleSetAct = ()=>{
-		setAct(!act)
-		// localStorage.setItem("cart-items", JSON.stringify(item))
-	}
-	console.log("allitems: ",allItems)
+	const [allPosts,setAllPosts] = useState()
+	const [myCart, setMyCart]=useState([])
+	// const [allItems, setAllItems] = useState(JSON.parse(localStorage.getItem("myCart")).carts || [])
+
+	// .......................format.........................
 	const formatter = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
         currency: 'VND',
         minimumFractionDigits: 0
       })
-
-	const cartItems = JSON.parse(localStorage.getItem("myCart")).carts || []
-	 const x = cartItems.map((dt)=>{
-		return dt.price
+	//   .format..................Sum..........................
+	
+	 const x = myCart.map((dt)=>{
+		return {price: dt.price, count: dt.count}
 	})
 	let S=0
 	 for( let i=1; i<= x.length; i++){
-	S += +x[i-1].replace(/,/g, '')
+	S += +x[i-1].price.replace(/,/g, '')*x[i-1].count
 	}
 	console.log(formatter.format(S))
+	// ----------------getDataFirebase----------------------
+	useEffect(()=>{
+        const q = query(collection(db,'UserCarts'));
+        const unsubcrible = onSnapshot(q,(querySnapshot)=>{
+            let carts = [];
+            querySnapshot.forEach((doc) => {
+                carts.push({...doc.data(), id:doc.id})
+                });
+                setAllPosts(carts)
+
+        })
+        return ()=> unsubcrible()
+    },[])
+	console.log(allPosts)
+	// -------------------------getMyCart-------------------------
+			useEffect(()=>{
+				setTimeout(()=>{
+					// console.log(allItems)
+					const myCart = allPosts.filter((data)=>{
+					return data.userId === user.uid
+					})
+					console.log("mycart: ", myCart)
+					setMyCart(myCart)
+				},[100])
+			},[allPosts])
+	
+	// ........................delete..............................
 	const handleDelete = async (data)=>{
-		if(user){
-			const newItem = [...JSON.parse(localStorage.getItem("myCart")).carts].filter(item=>{
-				return data.id !== item.id
-			})
-	  if(myCart){
-		   updateDoc(doc(db,"shoppingcart", myCart.id),{
-			carts: newItem
-			   })
-			   }
-			   setTimeout(()=>{
-				setAllItems(JSON.parse(localStorage.getItem("myCart")).carts)
-			   },[200])
-
-	   }
+        await deleteDoc(doc(db,"UserCarts",data.id))
     }
-	useEffect(()=>{},[allItems])
+	// ------------------------------increase----------------------
+	const increaseCount = async ( data)=>{
+		const cartRef = doc(db,"UserCarts", data.id)
+		await updateDoc(cartRef,{
+			count: data.count +1
+				 })
 
-	// const handleDeleteItem = (data)=>{
-	// 	const item = cartItems.filter((item)=>{
-	// 		if(data.id !== item.id) return true
-	// 	})
-	// 	setAllItems(item)
-	// 	localStorage.setItem("cart-items", JSON.stringify(item))
-	// 	console.log(cartItems)
-	// }
-	// const handleChangeQuantity = (e, data)=>{
-	// 	const valueInput = +e.target.value
-	// 	// const newPrice = +price.replace(/,/g, '')
-	// 	// console.log(price)
+	}
+	const decreaseCount = async ( data)=>{
+		if(data.count<2) return;
+		if(data.count>1){
+			const cartRef = doc(db,"UserCarts", data.id)
+			await updateDoc(cartRef,{
+				count: data.count -1
+					})
+		}
+		
 
-	// 	// console.log(data.price*valueInput)
-	// 	 console.log(data.price = String(+data.price.replace(/,/g, '')*valueInput))
+	}
 
-	// 	// console.log(price*valueInput)
-	// }
 
 
       
     //   console.log(formatter.format(+y))
     return (  
 
-<div className="z-50 absolute top-0 left-0 w-full h-screen sticky">
-		<div 
-		onClick={()=>{handleSetAct()}}
-		className="h-screen w-full opacity-80 bg-black  ">
-		</div>
-		<div className="w-full lg:w-2/5 h-screen bg-white absolute right-0 top-0">
-				<div className="p-2 flex flex-row items-center">
-				<span
-				onClick={()=>{
-					handleSetAct()
-					
-				}}
-				 className=" cursor-pointer hover:text-cyan-500 flex flex-row gap-2">
-					<ArrowBackIcon/>Back</span>
-					<h1 className="text-center text-black font-bold text-xl w-full uppercase">Giỏ hàng của bạn</h1>
-				</div>
-				<hr/>
-				<div className="w-full h-[680px] bg-gray-200 flex flex-col gap-[1px] overflow-auto">
+<div className="w-full h-screen z-40 pt-40 bg-gray-300">
+		<div className="z-50 w-full lg:w-3/5 h-[550px] bg-white absolute top-52 drop-shadow-2xl left-0  lg:left-20 rounded-xl overflow-hidden">
+				<div className="px-4 lg:px-0 w-full h-full bg-gray-100 py-2 flex flex-col gap-[2px] overflow-auto">
 					{
-					allItems && allItems.map((data)=>(
-						<div className="flex flex-row justify-evenly items-center p-2 py-4 gap-2 bg-white">
+					myCart && myCart.map((data,index)=>(
+					<div
+					key={index}
+					className="flex flex-row justify-evenly rounded-lg items-center p-2 py-4 gap-2 bg-white">
 						<div className="p-2">
-						<input
-						onChange={(e)=>{
-						// handleChangeQuantity(e, data)
-						}}
-						type="number" placeholder="1" className="w-10 border-[1px] border-black text-center rounded-xl" min="1"/>
+							<div className="flex flex-row">
+								<button 
+								onClick={()=>decreaseCount(data)}
+								className="px-2 border-[0.5px] font-bold">-</button>
+								<input
+								value={data.count}
+								type="text"
+								className="w-12 border-[0.5px] text-center" 
+								/>
+								<button
+								onClick={()=>increaseCount(data)}
+								className="px-2 border-[0.5px] font-bold">+</button>
+							</div>
+						
 						</div>
 						<div className="w-16">
 							<img src={data.links} alt=""/>
@@ -121,51 +126,35 @@ const [allItems, setAllItems] = useState(JSON.parse(localStorage.getItem("myCart
 						</div>
 						<span 
 						onClick={()=>handleDelete(data)}
-						className="mr-2 cursor-pointer"><ClearIcon/></span>
+						className="mr-2 cursor-pointer text-pink-500"><DeleteOutlineOutlinedIcon/></span>
 					</div>
 
 					))
 					}
 
-					{/* <div className="flex flex-row justify-evenly items-center p-2 py-4 gap-2 bg-white">
-						<div className="p-2">
-							<input type="checkbox"/>
-						</div>
-						<div className="w-16">
-							<img src="https://gs25.com.vn/media/4124/burger-ga-phomai-cheddar.png" alt=""/>
-						</div>
-						<div className="w-full px-4">
-							<h1 className="font-semibold text-lg">
-								hamburger siu ngon
-							</h1>
-						</div>
-						<span className="mr-2 cursor-pointer"><ClearIcon/></span>
-					</div>
-					<div className="flex flex-row justify-evenly items-center p-2 py-4 gap-2 bg-white">
-						<div className="p-2">
-							<input type="checkbox"/>
-						</div>
-						<div className="w-16">
-							<img src="https://gs25.com.vn/media/4124/burger-ga-phomai-cheddar.png" alt=""/>
-						</div>
-						<div className="w-full px-4">
-							<h1 className="font-semibold text-lg">
-								hamburger siu ngon
-							</h1>
-						</div>
-						<span className="mr-2 cursor-pointer"><ClearIcon/></span>
-					</div> */}
 				</div>
-				<div className="absolute bottom-4 bg-white z-50 left-0 flex flex-row w-full items-center">
-					<div className="w-1/2 flex flex-row justify-center item-center text-center gap-2">
-						<h1 className="font-bold">Thành Tiền: </h1>
-						<h1>{formatter.format(S)}</h1>
-					</div>
-					<hr/>
-					<div className="w-1/2 flex justify-center items-center">
-						<button className="p-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 px-5 text-white">Thanh Toán</button>
-					</div>
+		</div>
+		<div className="z-40 w-full lg:w-2/5 h-[550px] bg-white absolute top-52 drop-shadow-xl right-0 flex flex-row justify-end  lg:right-20 rounded-xl overflow-hidden">
+			<div className="w-2/3 flex-col flex justify-between py-4">
+				<div className="w-full text-center font-bold h-10 flex flex-col h-full gap-20 items-center justify-start text-xl">
+				<h1 className="text-3xl">Your Cart</h1>
+				<div>
+					<span>Total: <span className="text-pink-500">{formatter.format(S)}</span></span>
 				</div>
+				</div>
+				<div className="w-full flex items-center flex-col gap-2">
+					<button
+					
+					className="p-3 bg-blue-500 text-white w-2/3 rounded-lg mx-auto uppercase flex flex-row items-center gap-2 justify-center">
+						<Link to="/checkout"> <span>Check out</span> <ArrowForwardIcon/> </Link>
+					</button>
+					<button 
+					onClick={()=>Navigate("/")}
+					className="p-3 bg-red-500 text-white w-2/3 rounded-lg mx-auto uppercase flex flex-row items-center gap-2 justify-center">
+						<ArrowBackIcon/> <span>shopping again</span>
+					</button>
+				</div>
+			</div>
 		</div>
 		
 </div>

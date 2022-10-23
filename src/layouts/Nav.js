@@ -7,6 +7,10 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { onSnapshot, query, collection } from "firebase/firestore"; 
+import {db} from "../firebase"
+import { async } from "@firebase/util";
+
 
 
 const Nav = ({act,setAct}) => {
@@ -17,13 +21,38 @@ const Nav = ({act,setAct}) => {
     const [cartActive, setCartActive] = useState(false)
     const [curPath, setCurPath] = useState(localStorage.getItem("currentPath") || "/")
     const [state, setState] = useState(false)
+    const [allPosts,setAllPosts] = useState()
+	const [myCart, setMyCart]=useState([])
 
     
     setTimeout(() => {
         setState(!state)
     }, [1500]);
     
-        
+        // ----------------getDataFirebase----------------------
+	useEffect(()=>{
+        const q = query(collection(db,'UserCarts'));
+        const unsubcrible = onSnapshot(q,(querySnapshot)=>{
+            let carts = [];
+            querySnapshot.forEach((doc) => {
+                carts.push({...doc.data(), id:doc.id})
+                });
+                setAllPosts(carts)
+
+        })
+        return ()=> unsubcrible()
+    },[])
+	// -------------------------getMyCart-------------------------
+			useEffect(()=>{
+				setTimeout(()=>{
+					// console.log(allItems)
+					const myCart = allPosts.filter((data)=>{
+					return data.userId === user.uid
+					})
+					console.log("mycart: ", myCart)
+					setMyCart(myCart)
+				},[100])
+			},[allPosts])
 
     const handleSetPath =(data)=>{
     setCurPath(localStorage.getItem("currentPath"))
@@ -144,7 +173,9 @@ const navItems = [
               <div className="header__top">
                   <div className="container">
                       <div className="row">
-                          <div className="col-lg-6 col-md-6 flex items-center">
+                        {
+                            window.location.pathname != "shoppingcart" &&
+                            <div className="col-lg-6 col-md-6 flex items-center">
                               <div className="header__top__left ">
                                   <ul>
                                       <li><i className="fa fa-envelope"></i> commoditegrocerystore@gmail.com</li>
@@ -152,6 +183,8 @@ const navItems = [
                                   </ul>
                               </div>
                           </div>
+                        }
+                          
                           <div className="col-lg-6 col-md-6">
                               <div className="header__top__right flex flex-row justify-end items-center">
                                   <div className="header__top__right__social">
@@ -240,16 +273,15 @@ const navItems = [
                       <div className="col-lg-3 flex flex-col justify-center ">
                           <div className="header__cart flex justify-start md:justify-end ">
                             <div 
-                            onClick={handleCartPopup}
+                            // onClick={()=>{handleCartPopup}}
                             className="cursor-pointer border-white border-4 text-black p-2 rounded-xl px-3 flex gap-2 items-center">
+                                <Link to="/shoppingcart">
                                     {
                                         user &&
                                         <div 
                                         className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center absolute right-2 top-4">
                                         <span className="text-white font-bold">
-                                            {
-                                             JSON.parse(localStorage.getItem("myCart")) &&  JSON.parse(localStorage.getItem("myCart")).carts.length
-                                            }
+                                           {myCart.length}
                                         </span>
                                         </div>
                                     }
@@ -258,8 +290,8 @@ const navItems = [
                                 <a className='cursor-pointer text-white'><ShoppingCartCheckoutIcon/></a>
                             </span>
                               <div className="header__cart__price text-white uppercase font-bold">Giỏ hàng</div>
+                            </Link>
                             </div>
-                          
                           </div>
                       </div>
                   </div>

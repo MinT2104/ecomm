@@ -32,14 +32,14 @@ const Home = () => {
                 });
             setTests(test)
  })
-        console.log("tests0:" ,tests)
+        // console.log("tests0:" ,tests)
   
             
  
         return ()=> unsubcrible()
 
     },[])
-    console.log("data test1 :", tests)
+    // console.log("data test1 :", tests)
    
     useEffect(()=>{
     if(ref.current){
@@ -51,7 +51,7 @@ const Home = () => {
                 return data.userId == user.uid
                  })
 
-                console.log("data ne:", data)
+                // console.log("data ne:", data)
                    
                          if(!data[0]){
                             if( user.uid && data[0]== undefined){
@@ -61,7 +61,7 @@ const Home = () => {
                                 userId: user.uid,
                                 carts:[]
                                     })
-                                    console.log("tạo xong r nè")
+                                    // console.log("tạo xong r nè") 
                        }  
                          }else{
                             localStorage.setItem("myCart", JSON.stringify(data[0]))

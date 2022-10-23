@@ -13,10 +13,13 @@ import { useNavigate } from "react-router";
 import { Routes, Route } from "react-router-dom";
 import { AuthContextProvider } from './context/AuthContext';
 import Manager from './layouts/manager/Manager';
+import Checkout from './layouts/Checkout';
 
 
 
 const App =()=> {
+
+
     const handleScroll = (e)=>{
         console.log(e.target)
     }
@@ -51,14 +54,15 @@ const [cartActive, setCartActive] = useState(false)
                     <Route exact path="/" element={<Home/>} />
                     <Route path="/about" element={<About/>} />
                     <Route path="/contact" element={<Contact/>} />
+                    <Route path="/shoppingcart" element={<ShoppingCart/>} />
+                    <Route path="/checkout" element={<Checkout/>} />
                 </Routes>
           </div>
           <div>
             <Routes>
-              <Route path="/login" element={<Login/>}/>
-              {/* <Route path="/signup" element={<Signup/>}/> */}
-              <Route path="/manager" element={<Manager/>}/>
-
+                <Route path="/login" element={<Login/>}/>
+                {/* <Route path="/signup" element={<Signup/>}/> */}
+                <Route path="/manager" element={<Manager/>}/>
             </Routes>
         </div>
       

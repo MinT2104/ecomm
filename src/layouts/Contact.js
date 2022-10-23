@@ -1,6 +1,6 @@
 const Contact = () => {
     return ( 
-<div className=" container px-6 mx-auto pt-40">
+<div className=" container px-6 mx-auto pt-52">
   
       <div className="block rounded-lg shadow-lg py-10 md:py-12 px-4 md:px-6"
         style={{ background: "hsla(0, 0%, 100%, 0.8)", backdropFilter: "blur(30px)"}}>
