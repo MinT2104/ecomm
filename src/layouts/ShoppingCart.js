@@ -35,7 +35,7 @@ const ShoppingCart = () => {
 	 for( let i=1; i<= x.length; i++){
 	S += +x[i-1].price.replace(/,/g, '')*x[i-1].count
 	}
-	console.log(formatter.format(S))
+	// console.log(formatter.format(S))
 	// ----------------getDataFirebase----------------------
 	useEffect(()=>{
         const q = query(collection(db,'UserCarts'));
@@ -49,7 +49,7 @@ const ShoppingCart = () => {
         })
         return ()=> unsubcrible()
     },[])
-	console.log(allPosts)
+	// console.log(allPosts)
 	// -------------------------getMyCart-------------------------
 			useEffect(()=>{
 				setTimeout(()=>{

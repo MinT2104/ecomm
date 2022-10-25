@@ -126,17 +126,17 @@ const Allitems = () => {
                             }
                         </ul>
                     </div>
-                    <div class="flex justify-center">
-                        <div class="xl:w-96">
-                            <div class="input-group relative flex flex-wrap gap-2 items-stretch w-full">
+                    <div className="flex justify-center">
+                        <div className="xl:w-96">
+                            <div className="input-group relative flex flex-wrap gap-2 items-stretch w-full">
                                 <input
                                 value={searchInput}
                                 onChange={(e)=>{
                                     setSearchIput(e.target.value)
                                 }}
                                  type="search" 
-                                 class="form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:outline-none" placeholder="Search" aria-label="Search" aria-describedby="button-addon2"/>
-                                <button class=" inline-block px-4 py-1.5 bg-blue-500 text-white font-medium hover:bg-pink-500 rounded-lg hover:shadow-lg focus:bg-blue-700  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out flex items-center" type="button" id="button-addon2">
+                                 className="form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:outline-none" placeholder="Search" aria-label="Search" aria-describedby="button-addon2"/>
+                                <button className=" inline-block px-4 py-1.5 bg-blue-500 text-white font-medium hover:bg-pink-500 rounded-lg hover:shadow-lg focus:bg-blue-700  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out flex items-center" type="button" id="button-addon2">
                                 <SearchIcon/>
                                 </button>
                             </div>

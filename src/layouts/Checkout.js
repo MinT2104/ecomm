@@ -4,10 +4,11 @@ import { UserAuth } from "../context/AuthContext";
 import { onSnapshot, query, collection,addDoc,deleteDoc,doc } from "firebase/firestore"; 
 import {db} from "../firebase"
 import { toast, ToastContainer } from "react-toastify";
-// import { async } from "@firebase/util";
+import { useNavigate } from "react-router";
 
 
 const Checkout = () => {
+    const navigate = useNavigate()
     const {user, logOut} = UserAuth()
     const [myCart,setMyCart] = useState([])
     const [allPosts,setAllPosts] = useState([])
@@ -92,7 +93,8 @@ const Checkout = () => {
         myCart.forEach((data)=>{
              deleteDoc(doc(db,"UserCarts",data.id))
         })
-     
+        navigate("/")
+        toast("Bạn đã đặt hàng thành công")
     }
     
     else{
