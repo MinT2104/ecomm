@@ -28,7 +28,7 @@ const ShoppingCart = () => {
       })
 	//   .format..................Sum..........................
 	
-	 const x = myCart.map((dt)=>{
+	const x = myCart.map((dt)=>{
 		return {price: dt.price, count: dt.count}
 	})
 	let S=0
@@ -95,6 +95,7 @@ const ShoppingCart = () => {
 <div className="w-full h-screen z-40 pt-40 bg-gray-300">
 		<div className="z-50 w-full lg:w-3/5 h-[550px] bg-white absolute top-52 drop-shadow-2xl left-0  lg:left-20 rounded-xl overflow-hidden">
 				<div className="px-4 lg:px-0 w-full h-full bg-gray-100 py-2 flex flex-col gap-[2px] overflow-auto">
+			{S===0 && <div className="h-full w-full flex items-center justify-center font-bold "><span className="text-pink-500 text-center">Bạn chưa có sản phẩm nào trong giỏ hàng của mình</span></div> }
 					{
 					myCart && myCart.map((data,index)=>(
 					<div
@@ -143,11 +144,20 @@ const ShoppingCart = () => {
 				</div>
 				</div>
 				<div className="w-full flex items-center flex-col gap-2">
+					{
+					S===0?
 					<button
-					
-					className="p-3 bg-blue-500 text-white w-2/3 rounded-lg mx-auto uppercase flex flex-row items-center gap-2 justify-center">
+					className="p-3 bg-gray-400 text-white cursor-auto w-2/3 rounded-lg mx-auto uppercase flex flex-row items-center gap-2 justify-center">		
+						 <span>Check out</span> <ArrowForwardIcon/>
+					</button>
+					:
+					<button
+					className="p-3 bg-blue-500 text-white w-2/3 rounded-lg mx-auto uppercase flex flex-row items-center gap-2 justify-center">		
 						<Link to="/checkout"> <span>Check out</span> <ArrowForwardIcon/> </Link>
 					</button>
+					// null
+					}
+					
 					<button 
 					onClick={()=>Navigate("/")}
 					className="p-3 bg-red-500 text-white w-2/3 rounded-lg mx-auto uppercase flex flex-row items-center gap-2 justify-center">

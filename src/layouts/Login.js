@@ -67,7 +67,7 @@ const Login = () => {
                 onSubmit={handleSubmit(submit)}
                 className="w-96 h-fit pb-4 bg-white rounded-xl flex flex-col items-center">
                     <h1 className="text-xl font-bold uppercase text-center p-2 text-black mt-2">LogIn</h1>
-                    <span className="w-4/5">
+                    {/* <span className="w-4/5">
                         <label className=" font-light mt-2 text-black">
                             UserName: 
                         </label>
@@ -90,7 +90,7 @@ const Login = () => {
                     <Link to="/signup" className="font-medium hover:text-black text-cyan-500 cursor-pointer">
                         Register
                     </Link>
-                </div>
+                </div> */}
                 <div className="flex flex-col gap-2 items-center p-2 bg-white rounded-3xl cursor-pointer text-black w-4/5 mt-4">
                     {/* <div className="w-8 h-8">
                         <img src="https://cdn.statically.io/img/barrazacarlos.com/f=auto%2Cq=50/wp-content/uploads/2021/06/google-logo-1.png" alt=""/>
@@ -103,6 +103,9 @@ const Login = () => {
                         </span>
                     </div> */}
                     <GoogleLoginButton onClick={handleGoogleSignIn}/>
+                    <div>
+                        <span className="uppercase font-bold">or</span>
+                    </div>
                     <FacebookLoginButton/>
                 </div>
                 </form>
