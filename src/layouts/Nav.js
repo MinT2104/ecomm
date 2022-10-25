@@ -67,12 +67,10 @@ const Nav = ({act,setAct}) => {
         }
     }
     const handleCartPopup =()=>{
-        if(user){
-            setAct(!act) 
+        if(!user){
+            toast("Bạn cần phải đăng nhập để sử dụng")
          }
-         else{
-             toast("Bạn cần phải đăng nhập để sử dụng")
-         }
+      
     }
 if(cartActive){
     document.body.style.overflow = "hidden";
@@ -214,6 +212,7 @@ const navItems = [
                                         onClick={()=>{
                                             handleSignOut()
                                             toast("Bạn vừa đăng xuất tài khoản")
+                                            Navigate("/")
                                             localStorage.removeItem("myCart")
                                         }
                                         } className="cursor-pointer text-pink-500">
@@ -273,24 +272,35 @@ const navItems = [
                       <div className="col-lg-3 flex flex-col justify-center ">
                           <div className="header__cart flex justify-start md:justify-end ">
                             <div 
-                            // onClick={()=>{handleCartPopup}}
+                            onClick={handleCartPopup}
                             className="cursor-pointer border-white border-4 text-black p-2 rounded-xl px-3 flex gap-2 items-center">
-                                <Link to="/shoppingcart">
-                                    {
-                                        user &&
-                                        <div 
-                                        className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center absolute right-2 top-4">
-                                        <span className="text-white font-bold">
-                                           {myCart.length}
+                                {
+                                    user ?
+                                    <Link to="/shoppingcart">
+                                        {
+                                            user &&
+                                            <div 
+                                            className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center absolute right-2 top-4">
+                                                <span className="text-white font-bold">
+                                                {myCart.length}
+                                                </span>
+                                            </div>
+                                        }
+                                        <span>
+                                            <a className='cursor-pointer text-white'><ShoppingCartCheckoutIcon/></a>
                                         </span>
-                                        </div>
-                                    }
-                                
-                            <span>
-                                <a className='cursor-pointer text-white'><ShoppingCartCheckoutIcon/></a>
-                            </span>
-                              <div className="header__cart__price text-white uppercase font-bold">Giỏ hàng</div>
-                            </Link>
+                                        <div className="header__cart__price text-white uppercase font-bold">Giỏ hàng</div>
+                                    </Link>
+                                    :
+                                    <>
+                                      <span>
+                                    <a className='cursor-pointer text-white'><ShoppingCartCheckoutIcon/></a>
+                                    </span>
+                                    <div className="header__cart__price text-white uppercase font-bold">Giỏ hàng</div>
+                                    </>
+                                  
+                                }
+                                    
                             </div>
                           </div>
                       </div>
