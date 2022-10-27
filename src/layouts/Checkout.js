@@ -17,7 +17,7 @@ const Checkout = () => {
     const [numberPhone, setNumberPhone] = useState("")
     const [address, setAddress] = useState("")
     const [province, setProvince] = useState("")
-    const [town, setTown] = useState("")
+    // const [town, setTown] = useState("")
     // console.log(province)
 // -------------------------------------formater--------------------------------
         const formatter = new Intl.NumberFormat('vi-VN', {
@@ -60,20 +60,20 @@ const Checkout = () => {
 	S += +x[i-1].price.replace(/,/g, '')*x[i-1].count
 	}
     // -------------------------allIn4-------------------------
-    const in4 = {
-        name: name,
-        numberPhone: numberPhone,
-        address: address,
-        province: province,
-        town: town,
-        item: myCart,
-        userName: user.name,
-        total: S>100000? formatter.format(S) : formatter.format(S+15000)
-    }
+    // const in4 = {
+    //     name: name,
+    //     numberPhone: numberPhone,
+    //     address: address,
+    //     province: province,
+    //     // town: town,
+    //     item: myCart,
+    //     userName: user.name,
+    //     total: S>100000? formatter.format(S) : formatter.format(S+15000)
+    // }
     const handleAddOrder = ()=>{
         // alert("ok")
         let time = new Date();
-        if( name && numberPhone && address && province !== "Tỉnh/Thành phố" && town && myCart && user.uid ){
+        if( name && numberPhone && address && province !== "Tỉnh/Thành phố" && myCart && user.uid ){
             // if(user && S){
              addDoc(collection(db,"order"),
              {
@@ -81,9 +81,9 @@ const Checkout = () => {
              numberPhone: numberPhone,
              address: address,
              province: province,
-             town: town,
+            //  town: town,
              item: myCart,
-             total: S>100000? formatter.format(S) : formatter.format(S+15000),
+             total: S>100000? formatter.format(S) : formatter.format(S+5000),
              day: time.toLocaleDateString('vi-VN'),
              isConfirm: false,
              userId: user.uid,
@@ -105,8 +105,8 @@ const Checkout = () => {
     return ( 
         <>
         <ToastContainer/>
-           <div className="w-full h-screen z-40 pt-40 bg-gray-300">
-		<div className="z-50 w-full lg:w-4/5 h-fit lg:h-[550px] bg-white mt-10 drop-shadow-2xl mx-auto rounded-xl lg:gap-0 gap-4 flex-col lg:flex-row flex lg:truncate">
+           <div className="w-full h-screen z-40 pt-12 lg:pt-40 bg-gray-300">
+		<div className="z-50 w-full lg:w-4/5 h-fit lg:h-[550px] bg-white mt-10 drop-shadow-2xl mx-auto rounded-xl lg:gap-0 gap-10 flex-col lg:flex-row flex lg:truncate">
             <div className="lg:w-1/2 w-full bg-gradient-to-r from-transparent to-gray-50">
                 <div className="h-10 flex items-center justify-center ">
                     <h1 className="font-bold text-xl text-center uppercase text-pink-500">Thông tin giao hàng</h1>
@@ -127,12 +127,12 @@ const Checkout = () => {
                         value={province}
                         onChange={(e)=>setProvince(e.target.value)}
                         className="w-2/3 border-[1px] border-gray-300 py-2">
-                            <option>Tỉnh/Thành phố</option>
-                            <option>Thủ đức</option>
-                            <option>Thành phố Hồ Chí Minh</option>
+                            <option>ĐH Sư Phạm Kỹ Thuật TPHCM</option>
+                            {/* <option>Thủ đức</option>
+                            <option>Thành phố Hồ Chí Minh</option> */}
                         </select>
                     </div>
-                    <div className="w-full flex-col flex justify-start items-left font-medium mx-auto">
+                    {/* <div className="w-full flex-col flex justify-start items-left font-medium mx-auto">
                         <select
                         value={town}
                         onChange={(e)=>setTown(e.target.value)}
@@ -140,7 +140,7 @@ const Checkout = () => {
                             <option>Quận/Huyện</option>
                             <option>Quận 9</option>
                         </select>
-                    </div>
+                    </div> */}
                     {/* <div className="w-full flex-col flex justify-start items-left font-medium mx-auto">
                         <select className="w-2/3 border-[1px] border-gray-300 py-2">
                             <option>Phường/Xã</option>
@@ -151,8 +151,8 @@ const Checkout = () => {
                 </div>
               
             </div>
-            <div className=" lg:w-1/2 w-full h-full items-center justify-center flex bg-gradient-to-r from-gray-50 to-gray-100">
-                <div className="w-4/5 h-4/5 drop-shadow-[0_35px_35px_rgba(0,0,0,0.25)] bg-white rounded-lg flex flex-col justify-between">
+            <div className=" lg:w-1/2 w-full  h-full items-center justify-center flex bg-gradient-to-r from-gray-50 to-gray-100">
+                <div className="lg:w-4/5 w-full pb-4 lg:pb-0 h-4/5 drop-shadow-[0_35px_35px_rgba(0,0,0,0.25)] bg-white rounded-lg flex flex-col justify-between">
                     <div>
                          <div className="flex justify-center p-2">
                         <span className="font-medium uppercase">Đơn hàng</span>
@@ -178,7 +178,7 @@ const Checkout = () => {
                             <div className="flex flex-row justify-between"><h1 className="font-bold">Giảm:</h1><span className="text-pink-500">{formatter.format(0)}</span></div>
                             <div className="flex flex-row justify-between"><h1 className="font-bold">Phí ship:</h1><span className="text-pink-500"> 
                             {
-                                    S>100000? formatter.format(0) : formatter.format(15000)
+                                    S>100000? formatter.format(0) : formatter.format(5000)
                                 }
                                 </span></div>
                         </div>
@@ -202,7 +202,7 @@ const Checkout = () => {
                             <button
                             onClick={handleAddOrder}
                             className="text-white p-3 bg-blue-500 cursor-auto w-2/3 rounded-lg mx-auto flex flex-row items-center gap-2 justify-center">		
-                                <span>Xác nhận</span>
+                                <span className="text-white">Xác nhận</span>
                             </button>
                             </div>
                         </div>

@@ -92,9 +92,9 @@ const ShoppingCart = () => {
     //   console.log(formatter.format(+y))
     return (  
 
-<div className="w-full h-screen z-40 pt-40 bg-gray-300">
-		<div className="z-50 w-full lg:w-3/5 h-[550px] bg-white absolute top-52 drop-shadow-2xl left-0  lg:left-20 rounded-xl overflow-hidden">
-				<div className="px-4 lg:px-0 w-full h-full bg-gray-100 py-2 flex flex-col gap-[2px] overflow-auto">
+<div className="w-full h-screen z-40 pt-20 lg:pt-40 bg-gray-300">
+		<div className="z-50 w-full lg:w-3/5 lg:h-[550px] bg-white lg:absolute lg:top-52 drop-shadow-2xl left-0  lg:left-20 lg:rounded-xl overflow-hidden">
+				<div className="px-4 lg:px-0 w-full h-[350px] lg:h-full bg-gray-100 py-2 flex flex-col gap-[2px] overflow-auto">
 			{S===0 && <div className="h-full w-full flex items-center justify-center font-bold "><span className="text-pink-500 text-center">Bạn chưa có sản phẩm nào trong giỏ hàng của mình</span></div> }
 					{
 					myCart && myCart.map((data,index)=>(
@@ -135,8 +135,8 @@ const ShoppingCart = () => {
 
 				</div>
 		</div>
-		<div className="z-40 w-full lg:w-2/5 h-[550px] bg-white absolute top-52 drop-shadow-xl right-0 flex flex-row justify-end  lg:right-20 rounded-xl overflow-hidden">
-			<div className="w-2/3 flex-col flex justify-between py-4">
+		<div className="z-40 w-full lg:w-2/5 h-[350px] lg:h-[550px] bg-white lg:absolute lg:top-52 drop-shadow-xl right-0 flex flex-row justify-end  lg:right-20 lg:rounded-xl overflow-hidden">
+			<div className="lg:w-2/3 w-full flex-col flex justify-between py-4">
 				<div className="w-full text-center font-bold h-10 flex flex-col h-full gap-20 items-center justify-start text-xl">
 				<h1 className="text-3xl">Your Cart</h1>
 				<div>
@@ -153,7 +153,7 @@ const ShoppingCart = () => {
 					:
 					<button
 					className="p-3 bg-blue-500 text-white w-2/3 rounded-lg mx-auto uppercase flex flex-row items-center gap-2 justify-center">		
-						<Link to="/checkout"> <span>Check out</span> <ArrowForwardIcon/> </Link>
+						<Link to="/checkout"> <span className="text-white">Check out</span> <ArrowForwardIcon className="text-white"/> </Link>
 					</button>
 					// null
 					}
@@ -161,7 +161,7 @@ const ShoppingCart = () => {
 					<button 
 					onClick={()=>Navigate("/")}
 					className="p-3 bg-red-500 text-white w-2/3 rounded-lg mx-auto uppercase flex flex-row items-center gap-2 justify-center">
-						<ArrowBackIcon/> <span>shopping again</span>
+						<ArrowBackIcon/> <span className="text-white">shopping again</span>
 					</button>
 				</div>
 			</div>

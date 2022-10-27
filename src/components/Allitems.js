@@ -102,7 +102,7 @@ const Allitems = () => {
     return ( 
         <>
         <ToastContainer/>
-           <section className="featured spad z-40 pt-40">
+           <section className="featured spad z-40 pt-20 px-8 lg:pt-40">
         <div className="container">
             <div className="row px-4">
                 <div className="mb-2 mt-5 flex flex-row items-center justify-left gap-2 md:gap-8 flex-wrap-reverse">
@@ -188,8 +188,6 @@ const Allitems = () => {
                           <div className="featured__item__pic set-bg" data-setbg={dt.links}>
                               <img className="hover:scale-95 duration-300" src={dt.links} alt=""/>
                               <ul className="featured__item__pic__hover">
-                                  {/* <li><a href="#"><i className="fa fa-heart"></i></a></li>
-                                  <li><a href="#"><i className="fa fa-retweet"></i></a></li> */}
                                   <li className="cursor-pointer"
                                   onClick={()=>
                                     handleAdd(dt)
@@ -215,8 +213,6 @@ const Allitems = () => {
                           <div className="featured__item__pic set-bg" data-setbg={dt.links}>
                               <img className="hover:scale-95 duration-300" src={dt.links} alt=""/>
                               <ul className="featured__item__pic__hover">
-                                  <li><a href="#"><i className="fa fa-heart"></i></a></li>
-                                  <li><a href="#"><i className="fa fa-retweet"></i></a></li>
                                   <li className="cursor-pointer"
                                   onClick={()=>
                                     handleAdd(dt)
@@ -240,8 +236,6 @@ const Allitems = () => {
                           <div className="hover:scale-95 duration-300 featured__item__pic set-bg" data-setbg={dt.links}>
                               <img src={dt.links} alt=""/>
                               <ul className="featured__item__pic__hover">
-                                  <li><a href="#"><i className="fa fa-heart"></i></a></li>
-                                  <li><a href="#"><i className="fa fa-retweet"></i></a></li>
                                   <li className="cursor-pointer"
                                   onClick={()=>
                                     handleAdd(dt)

@@ -14,10 +14,12 @@ import { Routes, Route } from "react-router-dom";
 import { AuthContextProvider } from './context/AuthContext';
 import Manager from './layouts/manager/Manager';
 import Checkout from './layouts/Checkout';
+import NavMod from './layouts/NavMob';
 
 
 
 const App =()=> {
+    const [navMobieAct, setNavMobieAct] =useState(false)
 
 
     const handleScroll = (e)=>{
@@ -47,8 +49,8 @@ const [cartActive, setCartActive] = useState(false)
             :null
         }         
         <div className="humberger__menu__overlay"></div>
-        <Nav act={cartActive} setAct={setCartActive}/>
-         
+        <Nav act={cartActive} setNavMobieAct={setNavMobieAct} setAct={setCartActive}/>
+        <NavMod setNavMobieAct={setNavMobieAct} navMobieAct={navMobieAct}/>
           <div>
               <Routes>
                     <Route exact path="/" element={<Home/>} />

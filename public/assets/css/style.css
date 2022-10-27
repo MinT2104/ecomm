@@ -101,6 +101,12 @@ ol {
 /*---------------------
   Helper CSS
 -----------------------*/
+.nonedisplay{
+	display:none;
+}
+.blockdisplay{
+	display:block
+}
 
 .section-title {
 	margin-bottom: 50px;
@@ -146,7 +152,7 @@ ol {
 .text-white span,
 .text-white li,
 .text-white a {
-	color: #fff;
+	color: #000;
 }
 
 /* buttons */
@@ -2972,15 +2978,15 @@ ol {
 	.humberger__open {
 		display: block;
 		font-size: 22px;
-		color: #1c1c1c;
+		color: white;
 		height: 35px;
 		width: 35px;
 		line-height: 33px;
 		text-align: center;
-		border: 1px solid #1c1c1c;
+		border: 1px solid white;
 		cursor: pointer;
 		position: absolute;
-		right: 15px;
+		left: 15px;
 		top: 22px;
 	}
 	.header .container {
@@ -3230,12 +3236,28 @@ ol {
 	.humberger__open {
 		display: block;
 		font-size: 22px;
-		color: #1c1c1c;
+		color: white;
 		height: 35px;
 		width: 35px;
 		line-height: 33px;
 		text-align: center;
-		border: 1px solid #1c1c1c;
+		border: 1px solid white;
+		border-radius: 20%;
+		cursor: pointer;
+		position: absolute;
+		left: 15px;
+		top: 22px;
+	}
+	.humberger__cart {
+		display: block;
+		font-size: 22px;
+		color: white;
+		height: 35px;
+		width: 35px;
+		line-height: 33px;
+		text-align: center;
+		border: 1px solid white;
+		border-radius: 20%;
 		cursor: pointer;
 		position: absolute;
 		right: 15px;
