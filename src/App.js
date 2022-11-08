@@ -12,7 +12,7 @@ import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router";
 import { Routes, Route } from "react-router-dom";
 import { AuthContextProvider } from './context/AuthContext';
-import Manager from './layouts/manager/Manager';
+// import Manager from './layouts/manager/Manager';
 import Checkout from './layouts/Checkout';
 import NavMod from './layouts/NavMob';
 
@@ -64,7 +64,7 @@ const [cartActive, setCartActive] = useState(false)
             <Routes>
                 <Route path="/login" element={<Login/>}/>
                 {/* <Route path="/signup" element={<Signup/>}/> */}
-                <Route path="/manager" element={<Manager/>}/>
+                {/* <Route path="/manager" element={<Manager/>}/> */}
             </Routes>
         </div>
       

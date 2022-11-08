@@ -194,7 +194,7 @@ const Checkout = () => {
                                 <div className="text-pink-500 text-xl">
                                     <span className="font-bold text-black">Tổng tiền: </span>
                                 {
-                                    S>100000? formatter.format(S) : formatter.format(S+15000)
+                                    S>100000? formatter.format(S) : formatter.format(S+5000)
                                 }
                                 </div>
                             </div>

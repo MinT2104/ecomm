@@ -154,8 +154,8 @@ const Allitems = () => {
                         <div className="featured__item__pic set-bg" data-setbg={dt.links}>
                             <img className="hover:scale-95 duration-300" src={dt.links} alt=""/>
                             <ul className="featured__item__pic__hover">
-                                {/* <li><a href="#"><i className="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i className="fa fa-retweet"></i></a></li> */}
+                                <li><a href="#"><i className="fa fa-heart"></i></a></li>
+                                <li><a href="#"><i className="fa fa-retweet"></i></a></li>
                                 <li className="cursor-pointer"
                                 onClick={()=>
                                   handleAdd(dt)
