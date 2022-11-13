@@ -100,8 +100,8 @@ const ShoppingCart = () => {
 					myCart && myCart.map((data,index)=>(
 					<div
 					key={index}
-					className="flex flex-row justify-evenly rounded-lg items-center p-2 py-4 gap-2 bg-white">
-						<div className="p-2">
+					className="flex text-center flex-col md:flex-row justify-evenly rounded-lg items-center p-2 py-4 gap-2 bg-white">
+						<div className="p-2 flex flex-row justify-between px-4 items-center md:w-fit w-full">
 							<div className="flex flex-row">
 								<button 
 								onClick={()=>decreaseCount(data)}
@@ -115,7 +115,9 @@ const ShoppingCart = () => {
 								onClick={()=>increaseCount(data)}
 								className="px-2 border-[0.5px] font-bold">+</button>
 							</div>
-						
+							<span 
+						onClick={()=>handleDelete(data)}
+						className="mr-2 cursor-pointer block md:hidden"><button className="p-2 bg-red-500 rounded text-white">Xóa</button></span>
 						</div>
 						<div className="w-16">
 							<img src={data.links} alt=""/>
@@ -127,7 +129,7 @@ const ShoppingCart = () => {
 						</div>
 						<span 
 						onClick={()=>handleDelete(data)}
-						className="mr-2 cursor-pointer text-pink-500"><DeleteOutlineOutlinedIcon/></span>
+						className="mr-2 cursor-pointer hidden md:block"><button className="p-2 bg-red-500 rounded text-white">Xóa</button></span>
 					</div>
 
 					))

@@ -154,8 +154,8 @@ const Allitems = () => {
                         <div className="featured__item__pic set-bg" data-setbg={dt.links}>
                             <img className="hover:scale-95 duration-300" src={dt.links} alt=""/>
                             <ul className="featured__item__pic__hover">
-                                <li><a href="#"><i className="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i className="fa fa-retweet"></i></a></li>
+                                {/* <li><a href="#"><i className="fa fa-heart"></i></a></li>
+                                <li><a href="#"><i className="fa fa-retweet"></i></a></li> */}
                                 <li className="cursor-pointer"
                                 onClick={()=>
                                   handleAdd(dt)
@@ -186,6 +186,7 @@ const Allitems = () => {
                     <div key={index} className=" hover:scale-95 duration-300 col-lg-3 col-md-4 col-sm-6 border-gray-100 bg-white border-[2px] pt-2">
                       <div className="featured__item hover:text-pink-500">
                           <div className="featured__item__pic set-bg" data-setbg={dt.links}>
+                            {/* <div className="bg-gradient-to-t from-transparent to-black opacity-50 absolute top-0 left-0 w-full h-full"></div> */}
                               <img className="hover:scale-95 duration-300" src={dt.links} alt=""/>
                               <ul className="featured__item__pic__hover">
                                   {/* <li><a href="#"><i className="fa fa-heart"></i></a></li>
@@ -195,7 +196,8 @@ const Allitems = () => {
                                     handleAdd(dt)
                                 }
                                   >
-                                    <a><i className="fa fa-shopping-cart"></i></a></li>
+                                    <a>
+                                        <i className="fa fa-shopping-cart"></i></a></li>
                               </ul>
                           </div>
                           <div className="featured__item__text">
@@ -214,9 +216,9 @@ const Allitems = () => {
                       <div className="featured__item">
                           <div className="featured__item__pic set-bg" data-setbg={dt.links}>
                               <img className="hover:scale-95 duration-300" src={dt.links} alt=""/>
-                              <ul className="featured__item__pic__hover">
-                                  <li><a href="#"><i className="fa fa-heart"></i></a></li>
-                                  <li><a href="#"><i className="fa fa-retweet"></i></a></li>
+                               <ul className="featured__item__pic__hover">
+                                  {/* <li><a href="#"><i className="fa fa-heart"></i></a></li>
+                                  <li><a href="#"><i className="fa fa-retweet"></i></a></li>  */}
                                   <li className="cursor-pointer"
                                   onClick={()=>
                                     handleAdd(dt)
@@ -240,8 +242,8 @@ const Allitems = () => {
                           <div className="hover:scale-95 duration-300 featured__item__pic set-bg" data-setbg={dt.links}>
                               <img src={dt.links} alt=""/>
                               <ul className="featured__item__pic__hover">
-                                  <li><a href="#"><i className="fa fa-heart"></i></a></li>
-                                  <li><a href="#"><i className="fa fa-retweet"></i></a></li>
+                                  {/* <li><a href="#"><i className="fa fa-heart"></i></a></li>
+                                  <li><a href="#"><i className="fa fa-retweet"></i></a></li> */}
                                   <li className="cursor-pointer"
                                   onClick={()=>
                                     handleAdd(dt)

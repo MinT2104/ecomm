@@ -166,7 +166,7 @@ const navItems = [
                   </div>
               </div>
               <div className="container">
-                  <div className="flex flex-row">
+                  <div className="flex flex-row items-center">
                   <div
                   onClick={()=>props.setNavMobieAct(true)}
                   className="lg:hidden block p-2 flex items-center justify-center">

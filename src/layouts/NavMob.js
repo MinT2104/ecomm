@@ -51,7 +51,7 @@ const NavMod = (props) => {
            props.navMobieAct === true ?
             <> 
            
-         <div className="bg-gray-200 w-2/3 z-50 h-screen fixed">
+         <div className="bg-gray-200 w-2/3 z-[99] h-screen fixed">
          <div
             onClick={()=>props.setNavMobieAct(false)}
             className="flex justify-end p-2">
@@ -66,7 +66,7 @@ const NavMod = (props) => {
 
               {/* <div className="flex justify-center items-center"> */}
                 <nav className="block w-full text-white z-50">
-                  <ul className="">
+                  <ul className="w-fit mx-auto">
                     {
                         navItems.map((data, index)=>(
                             <li
@@ -77,9 +77,7 @@ const NavMod = (props) => {
                             key={index}
                             >
                             <Link to={data.path}>
-                                <span className={`font-bold flex flex-row 
-                                 
-                                 items-center gap-[2px] md:pl-60 pl-28 hover:scale-95 duration-300`}>
+                                <span className={`font-bold flex flex-row items-center gap-[2px]  hover:scale-95 duration-300`}>
                                     {data.name}
                                 </span>
                             </Link>
@@ -107,6 +105,7 @@ const NavMod = (props) => {
                                             toast("Bạn vừa đăng xuất tài khoản")
                                             props.setNavMobieAct(false)
                                             localStorage.removeItem("myCart")
+                                            Navigate('/')
                                         }
                                         } className="cursor-pointer text-pink-500">
                                             <LogoutIcon />

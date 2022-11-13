@@ -189,7 +189,7 @@ const Checkout = () => {
                                 <span>Thanh toán khi nhận hàng</span>
                             </div>
                         </div>
-                        <div className="flex flex-row w-full h-16">
+                        <div className="flex flex-col justify-center items-center gap-5 md:my-0 my-10 md:flex-row w-full h-16">
                             <div className="w-1/2 h-full flex items-center justify-center">
                                 <div className="text-pink-500 text-xl">
                                     <span className="font-bold text-black">Tổng tiền: </span>
