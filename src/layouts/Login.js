@@ -65,7 +65,7 @@ const Login = () => {
             <div className="relative w-full h-screen flex flex-row items-center justify-center">
                 <form
                 onSubmit={handleSubmit(submit)}
-                className="w-96 h-fit pb-4 bg-white rounded-xl flex flex-col items-center">
+                className="w-full md:w-96 h-full md:h-fit pb-4 bg-white rounded-xl flex flex-col justify-center items-center">
                     <h1 className="text-xl font-bold uppercase text-center p-2 text-black mt-2">LogIn</h1>
                     {/* <span className="w-4/5">
                         <label className=" font-light mt-2 text-black">
