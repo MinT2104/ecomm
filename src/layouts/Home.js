@@ -1,5 +1,5 @@
 
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import Allitems from "../components/Allitems";
 import Categories from "../components/Categories";
 
@@ -115,9 +115,9 @@ const Home = () => {
                           <div className="footer__widget w-3/5">
                               <h6>Trang web</h6>
                               <ul>
-                                  <li><a href="#">Trang Chủ</a></li>
-                                  <li><a href="#">Giới Thiệu</a></li>
-                                  <li><a href="#">Liên Hệ</a></li>
+                                  <li><Link to="/">Trang Chủ</Link></li>
+                                  <li><Link to="/about">Giới Thiệu</Link></li>
+                                  <li><Link to="/contact">Liên Hệ</Link></li>
                                  
                               </ul>
                           </div>
@@ -131,10 +131,10 @@ const Home = () => {
                                   <button type="submit" className="site-btn">Subscribe</button>
                               </form>
                               <div className="footer__widget__social">
-                                  <a href="#"><i className="fa fa-facebook"></i></a>
-                                  <a href="#"><i className="fa fa-instagram"></i></a>
-                                  <a href="#"><i className="fa fa-twitter"></i></a>
-                                  <a href="#"><i className="fa fa-pinterest"></i></a>
+                                  <a href="https://www.facebook.com/profile.php?id=100086444417322"><i className="fa fa-facebook"></i></a>
+                                  <a href="https://www.instagram.com/commodite.gs/?fbclid=IwAR1oY7KQ8muwybtTeeHWCWPAid4WWE-mHOAW6PIsqmAFVpSBwLxDIhHNlkY"><i className="fa fa-instagram"></i></a>
+                                  {/* <a href="#"><i className="fa fa-twitter"></i></a>
+                                  <a href="#"><i className="fa fa-pinterest"></i></a> */}
                               </div>
                           </div>
                       </div>
