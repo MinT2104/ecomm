@@ -39,7 +39,7 @@ const Home = () => {
         return ()=> unsubcrible()
 
     },[])
-    // console.log("data test1 :", tests)
+    console.log(user)
    
     useEffect(()=>{
     if(ref.current){

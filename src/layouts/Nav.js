@@ -9,8 +9,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { onSnapshot, query, collection } from "firebase/firestore"; 
 import {db} from "../firebase"
-import { async } from "@firebase/util";
-import { PropaneSharp } from "@mui/icons-material";
+import Dropin4 from "../components/Dropin4"
+
 
 
 
@@ -25,6 +25,7 @@ const Nav = (props) => {
     const [allPosts,setAllPosts] = useState()
 	const [myCart, setMyCart]=useState([])
     const [navMobieAct, setNavMobieAct] =useState(false)
+    const [dropIn4,setDropIn4] = useState(false)
 
     
     setTimeout(() => {
@@ -64,6 +65,7 @@ const Nav = (props) => {
         try {
            logOut();
            localStorage.removeItem("accessToken")
+           toast("Bạn vừa đăng xuất tài khoản")
         } catch(error) {
             console.log(error)
         }
@@ -80,6 +82,7 @@ if(cartActive){
         document.body.style.overflow = "auto";
     
 }
+
 const navItems = [
     {
         icon:"<HomeIcon/>",
@@ -134,18 +137,20 @@ const navItems = [
                                   </div>
                                   {
                                     accessToken? 
-                                    <div className="header__top__right__auth  flex items-center gap-5">
-                                        <div className="flex flex-row gap-2 items-center">
-                                            <div className="w-10 h-10 rounded-full truncate">
+                                    <div
+                                    onClick={()=>{setDropIn4(!dropIn4)}}
+                                    className="header__top__right__auth flex items-center gap-5 duration-300">
+                                        <div className="relative flex flex-row gap-2 items-center ">
+                                       {dropIn4?  <Dropin4 dropIn4={dropIn4} />:null}
+                                            <div className="w-10 h-10 rounded-full truncate cursor-pointer">
                                                 <img className="w-10 h-10" src={user.photoURL} alt=""/>
                                             </div>
-                                        <span className="font-light">{user.displayName}</span>
+                                        <span className="font-light cursor-pointer">{user.displayName}</span>
                                         </div>
 
                                         <div
                                         onClick={()=>{
                                             handleSignOut()
-                                            toast("Bạn vừa đăng xuất tài khoản")
                                             Navigate("/")
                                             localStorage.removeItem("myCart")
                                         }

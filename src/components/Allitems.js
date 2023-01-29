@@ -23,7 +23,7 @@ const Allitems = () => {
 //-----------------------------filter----------------------------
 
    const listFiltered = allPosts.filter((data)=>{
-        return data.name.toLowerCase().includes(searchInput)
+        return data.name.toLowerCase().includes(searchInput.toLowerCase())
     })
   // database-firebase------------------------------
     useEffect(()=>{

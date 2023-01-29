@@ -1,5 +1,5 @@
 
-
+import Userin4 from "./layouts/Userin4";
 import About from './layouts/About';
 import Contact from './layouts/Contact';
 import Login from './layouts/Login';
@@ -33,13 +33,6 @@ const [cartActive, setCartActive] = useState(false)
     <AuthContextProvider>
         <div
      className="MainDiv">
-      
-        {/* <span
-      className=''
-       onClick={()=>setCartActive(!cartActive)}
-        >
-           <a className=' z-50 rounded-full cursor-pointer'><ShoppingCartIcon/></a>
-         </span> */}
 
       
          {
@@ -65,6 +58,7 @@ const [cartActive, setCartActive] = useState(false)
                 <Route path="/login" element={<Login/>}/>
                 {/* <Route path="/signup" element={<Signup/>}/> */}
                 {/* <Route path="/manager" element={<Manager/>}/> */}
+                <Route path="/user" element={<Userin4/>} />
             </Routes>
         </div>
       

@@ -51,7 +51,10 @@ const NavMod = (props) => {
            props.navMobieAct === true ?
             <> 
            
-         <div className="bg-gray-200 w-2/3 z-[99] h-screen fixed">
+         <div className={`bg-gray-200 w-72 z-[99] h-screen fixed ease-in-out duration-300
+         ${props.navMobieAct ? "translate-x-0" : "translate-x-full"}`
+        }
+         >
          <div
             onClick={()=>props.setNavMobieAct(false)}
             className="flex justify-end p-2">
