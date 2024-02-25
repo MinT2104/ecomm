@@ -49,7 +49,7 @@ const Nav = (props) => {
 			useEffect(()=>{
 				setTimeout(()=>{
 					// console.log(allItems)
-					const myCart = allPosts.filter((data)=>{
+					const myCart = allPosts?.filter((data)=>{
 					return data.userId === user.uid
 					})
 					console.log("mycart: ", myCart)
