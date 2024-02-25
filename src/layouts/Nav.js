@@ -143,9 +143,9 @@ const navItems = [
                                         <div className="relative flex flex-row gap-2 items-center ">
                                        {dropIn4?  <Dropin4 dropIn4={dropIn4} />:null}
                                             <div className="w-10 h-10 rounded-full truncate cursor-pointer">
-                                                <img className="w-10 h-10" src={user.photoURL} alt=""/>
+                                                <img className="w-10 h-10" src={user?.photoURL} alt=""/>
                                             </div>
-                                        <span className="font-light cursor-pointer">{user.displayName}</span>
+                                        <span className="font-light cursor-pointer">{user?.displayName}</span>
                                         </div>
 
                                         <div
@@ -219,7 +219,7 @@ const navItems = [
                                             <div 
                                             className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center absolute right-2 top-4">
                                                 <span className="text-white font-bold">
-                                                {myCart.length}
+                                                {myCart?.length}
                                                 </span>
                                             </div>
                                         }
@@ -248,7 +248,7 @@ const navItems = [
                                             <div 
                                             className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center absolute right-2 top-4">
                                                 <span className="text-white font-bold">
-                                                {myCart.length}
+                                                {myCart?.length}
                                                 </span>
                                             </div>
                                         }
